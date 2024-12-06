@@ -1,0 +1,23 @@
+[project]
+authors = ["Matthew Feickert <matthew.feickert@cern.ch>"]
+channels = ["conda-forge"]
+description = "Add a short description here"
+name = "hello_pytorch"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+detect-gpu = """
+python ./src/torch_detect_GPU.py
+"""
+
+mnist-test = """
+python ./src/torch_MNIST.py
+"""
+
+[system-requirements]
+cuda = "11"
+
+[dependencies]
+python = "3.12.*"
+pytorch-gpu = ">=2.5.1,<3"
