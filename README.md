@@ -8,7 +8,7 @@ These examples assume that you want to use GPU resources to take advantage of ha
 
 ### Local installation
 
-- Make sure that you have the [`nvidia-container-toolkit`](https://github.com/NVIDIA/nvidia-docker) installed on the host machine
+- Make sure that you have the [`nvidia-container-toolkit`](https://github.com/NVIDIA/nvidia-container-toolkit) installed on the host machine
 - Check the [list of available tags on Github Container Registry](https://github.com/prefix-dev/pixi-docker/pkgs/container/pixi) to find the tag you want
 
 > [!TIP]
