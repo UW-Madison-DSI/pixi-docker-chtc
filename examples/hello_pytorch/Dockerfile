@@ -8,7 +8,7 @@ RUN echo "#!/bin/bash" > /app/entrypoint.sh && \
     cat /shell-hook >> /app/entrypoint.sh && \
     echo 'exec "$@"' >> /app/entrypoint.sh
 
-FROM ghcr.io/prefix-dev/pixi:jammy-cuda-11.8.0 as production
+FROM ghcr.io/prefix-dev/pixi:jammy-cuda-11.8.0 AS production
 
 WORKDIR /app
 COPY --from=build /app/.pixi/envs/prod /app/.pixi/envs/prod
