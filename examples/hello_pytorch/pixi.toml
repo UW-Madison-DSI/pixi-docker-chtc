@@ -7,6 +7,7 @@ platforms = ["linux-64"]
 version = "0.1.0"
 
 [tasks]
+# c.f. https://gist.github.com/matthewfeickert/a617c83a1bc3b4b2fd33b06bd267de76
 detect-gpu = """
 python ./src/torch_detect_GPU.py
 """
