@@ -2,8 +2,8 @@ FROM ghcr.io/prefix-dev/pixi:jammy AS build
 
 WORKDIR /app
 COPY . .
-RUN pixi install --locked -e prod
-RUN pixi shell-hook -e prod -s bash > /shell-hook
+RUN pixi install --locked --environment prod
+RUN pixi shell-hook --environment prod -s bash > /shell-hook
 RUN echo "#!/bin/bash" > /app/entrypoint.sh && \
     cat /shell-hook >> /app/entrypoint.sh && \
     echo 'exec "$@"' >> /app/entrypoint.sh
