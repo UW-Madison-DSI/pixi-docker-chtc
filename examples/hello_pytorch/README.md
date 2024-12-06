@@ -63,5 +63,5 @@ root@5789c0254776:/app#
 or
 
 ```
-$ docker run --rm --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-11.8.0 python ./src/torch_MNIST.py
+docker run --rm --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-11.8.0 python ./src/torch_MNIST.py
 ```
