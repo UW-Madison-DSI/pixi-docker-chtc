@@ -16,6 +16,8 @@ mnist-test = """
 python ./src/torch_MNIST.py
 """
 
+start = { depends-on = ["mnist-test"] }
+
 [system-requirements]
 cuda = "11"
 
