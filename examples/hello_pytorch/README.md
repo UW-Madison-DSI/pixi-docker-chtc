@@ -26,6 +26,14 @@ bash build.sh
 
 ## Running container locally
 
+> [!TIP]
+> For nice GPU use tracking in an `htop` like manner install [`nvtop` ](https://github.com/Syllo/nvtop)
+>
+> ```console
+> $ pixi global install nvtop
+> $ nvtop
+> ```
+
 ```
 docker run --rm -ti --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-11.8.0 bash
 ```
