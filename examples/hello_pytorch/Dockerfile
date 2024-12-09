@@ -7,7 +7,7 @@ RUN echo "#!/bin/bash" > /app/entrypoint.sh && \
     pixi shell-hook --environment prod -s bash >> /app/entrypoint.sh && \
     echo 'exec "$@"' >> /app/entrypoint.sh
 
-FROM ghcr.io/prefix-dev/pixi:jammy-cuda-11.8.0 AS production
+FROM ghcr.io/prefix-dev/pixi:jammy AS production
 
 WORKDIR /app
 COPY --from=build /app/.pixi/envs/prod /app/.pixi/envs/prod
