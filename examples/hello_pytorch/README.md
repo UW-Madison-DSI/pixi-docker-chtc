@@ -63,7 +63,7 @@ root@5789c0254776:/app#
 or use the `pixi` tasks
 
 ```
-docker run --rm --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-11.8.0 pixi run mnist-test
+docker run --rm --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-11.8.0 pixi run train-mnist
 ```
 
 or the explicit commands

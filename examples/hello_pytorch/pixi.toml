@@ -12,11 +12,11 @@ detect-gpu = """
 python ./src/torch_detect_GPU.py
 """
 
-mnist-test = """
+train-mnist = """
 python ./src/torch_MNIST.py
 """
 
-start = { depends-on = ["mnist-test"] }
+start = { depends-on = ["train-mnist"] }
 
 [system-requirements]
 cuda = "11"
