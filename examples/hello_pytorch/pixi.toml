@@ -7,16 +7,29 @@ platforms = ["linux-64"]
 version = "0.1.0"
 
 [tasks]
+start = { depends-on = ["train-mnist"] }
+
+[tasks.detect-gpu]
 # c.f. https://gist.github.com/matthewfeickert/a617c83a1bc3b4b2fd33b06bd267de76
-detect-gpu = """
+description = "Check for a valid GPU and NVIDIA driver setup"
+cmd = """
 python ./src/torch_detect_GPU.py
 """
 
-train-mnist = """
+[tasks.train-mnist]
+description = "Train a simple PyTorch neural net classifier on the MNIST dataset"
+cmd = """
 python ./src/torch_MNIST.py
 """
 
-start = { depends-on = ["train-mnist"] }
+[tasks.download-mnist]
+description = "Download the MNIST dataset in advance of training"
+cmd = """
+python -c "\
+from torchvision import datasets, transforms; \
+transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]); \
+dataset1 = datasets.MNIST('../data', train=True, download=True, transform=transform)"
+"""
 
 [system-requirements]
 cuda = "11"
