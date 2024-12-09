@@ -60,7 +60,13 @@ Test set: Average loss: 0.0264, Accuracy: 9913/10000 (99%)
 root@5789c0254776:/app#
 ```
 
-or
+or use the `pixi` tasks
+
+```
+docker run --rm --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-11.8.0 pixi run mnist-test
+```
+
+or the explicit commands
 
 ```
 docker run --rm --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-11.8.0 python ./src/torch_MNIST.py
