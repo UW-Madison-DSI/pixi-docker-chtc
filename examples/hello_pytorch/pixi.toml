@@ -31,6 +31,7 @@ transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1
 dataset1 = datasets.MNIST('../data', train=True, download=True, transform=transform)"
 """
 
+# Required for picking up the correct versions of pytorch
 [system-requirements]
 cuda = "11"
 
