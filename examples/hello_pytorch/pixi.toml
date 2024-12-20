@@ -32,6 +32,7 @@ dataset1 = datasets.MNIST('../data', train=True, download=True, transform=transf
 """
 
 # Required for picking up the correct versions of pytorch
+# c.f. https://pixi.sh/dev/features/pytorch/#system-requirements
 [system-requirements]
 cuda = "11"
 
