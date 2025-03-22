@@ -1,10 +1,10 @@
-# Example configurations for using containerized `pixi` environments with HTCondor and GPUs
+# Example configurations for using containerized Pixi environments with HTCondor and GPUs
 
 These examples are inspired by the [Center for High Throughput Computing examples](https://github.com/CHTC/templates-GPUs), the [`pixi-docker` project](https://github.com/prefix-dev/pixi-docker), and [Pavel Zwerschke](https://github.com/pavelzw)'s [`pixi-docker-example`](https://github.com/pavelzw/pixi-docker-example)s.
 
 ## CUDA enabled Docker images
 
-These examples assume that you want to use GPU resources to take advantage of hardware acceleration and so focus on using the [`pixi` Docker base images](https://github.com/prefix-dev/pixi-docker/pkgs/container/pixi) built on the [NVIDIA CUDA enabled images](https://github.com/NVIDIA/nvidia-docker) for runtime use with the the NVIDIA Container Toolkit.
+These examples assume that you want to use GPU resources to take advantage of hardware acceleration and so focus on using the [Pixi Docker base images](https://github.com/prefix-dev/pixi-docker/pkgs/container/pixi) built on the [NVIDIA CUDA enabled images](https://github.com/NVIDIA/nvidia-docker) for runtime use with the the NVIDIA Container Toolkit.
 
 ### Local installation
 
