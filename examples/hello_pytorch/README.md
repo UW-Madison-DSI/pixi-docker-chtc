@@ -35,7 +35,7 @@ bash build.sh
 > ```
 
 ```
-docker run --rm -ti --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-12.6.0 bash
+docker run --rm -ti --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-12.6.3 bash
 ```
 
 ```console
@@ -63,11 +63,11 @@ root@5789c0254776:/app#
 or use the `pixi` tasks
 
 ```
-docker run --rm --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-12.6.0 pixi run train-mnist
+docker run --rm --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-12.6.3 pixi run train-mnist
 ```
 
 or the explicit commands
 
 ```
-docker run --rm --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-12.6.0 python ./src/torch_MNIST.py
+docker run --rm --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-12.6.3 python ./src/torch_MNIST.py
 ```
