@@ -24,7 +24,7 @@ These examples assume that you want to use GPU resources to take advantage of ha
 Example:
 
 ```
-docker pull ghcr.io/prefix-dev/pixi:0.39.0-jammy-cuda-11.8.0
+docker pull ghcr.io/prefix-dev/pixi:0.39.0-jammy-cuda-12.6.0
 ```
 
 ### Local use
@@ -32,7 +32,7 @@ docker pull ghcr.io/prefix-dev/pixi:0.39.0-jammy-cuda-11.8.0
 To check that NVIDIA GPUS are being properly detected run
 
 ```
-docker run --rm --gpus all ghcr.io/prefix-dev/pixi:0.39.0-jammy-cuda-11.8.0 'nvidia-smi'
+docker run --rm --gpus all ghcr.io/prefix-dev/pixi:0.39.0-jammy-cuda-12.6.0 'nvidia-smi'
 ```
 
 and check if the [`nvidia-smi`](https://developer.nvidia.com/nvidia-system-management-interface) output appears correctly.
@@ -40,5 +40,5 @@ and check if the [`nvidia-smi`](https://developer.nvidia.com/nvidia-system-manag
 To run (interactively) using GPUs on the host machine:
 
 ```
-docker run --rm -ti --gpus all ghcr.io/prefix-dev/pixi:0.39.0-jammy-cuda-11.8.0
+docker run --rm -ti --gpus all ghcr.io/prefix-dev/pixi:0.39.0-jammy-cuda-12.6.0
 ```

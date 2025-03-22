@@ -35,12 +35,12 @@ bash build.sh
 > ```
 
 ```
-docker run --rm -ti --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-11.8.0 bash
+docker run --rm -ti --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-12.6.0 bash
 ```
 
 ```console
 root@5789c0254776:/app# python ./src/torch_detect_GPU.py
-PyTorch build CUDA version: 11.8
+PyTorch build CUDA version: 12.6
 PyTorch build cuDNN version: 90300
 PyTorch build NCCL version: (2, 23, 4)
 
@@ -63,11 +63,11 @@ root@5789c0254776:/app#
 or use the `pixi` tasks
 
 ```
-docker run --rm --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-11.8.0 pixi run train-mnist
+docker run --rm --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-12.6.0 pixi run train-mnist
 ```
 
 or the explicit commands
 
 ```
-docker run --rm --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-11.8.0 python ./src/torch_MNIST.py
+docker run --rm --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-12.6.0 python ./src/torch_MNIST.py
 ```

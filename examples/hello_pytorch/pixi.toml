@@ -34,12 +34,12 @@ dataset1 = datasets.MNIST('../data', train=True, download=True, transform=transf
 # Required for picking up the correct versions of pytorch
 # c.f. https://pixi.sh/dev/features/pytorch/#system-requirements
 [system-requirements]
-cuda = "11"
+cuda = "12"
 
 [dependencies]
 python = "3.13.*"
-pytorch = ">=2.5.1,<3"
-cuda-version = "11.8.*"
+pytorch-gpu = ">=2.5.1,<3"
+cuda-version = "12.6.*"
 torchvision = ">=0.20.1,<0.21"
 
 [environments]
