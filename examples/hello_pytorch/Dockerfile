@@ -2,6 +2,7 @@ FROM ghcr.io/prefix-dev/pixi:jammy AS build
 
 WORKDIR /app
 COPY . .
+ENV CONDA_OVERRIDE_CUDA=12.0
 RUN pixi install --locked --environment prod
 RUN echo "#!/bin/bash" > /app/entrypoint.sh && \
     pixi shell-hook --environment prod -s bash >> /app/entrypoint.sh && \
