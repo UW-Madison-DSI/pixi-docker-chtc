@@ -13,7 +13,7 @@ RUN pixi install --locked --environment prod
 command will succeed the `pixi.lock` needs to know about the existence of the `prod` environment and be current with it, so run
 
 ```
-pixi install --environment prod
+pixi lock
 ```
 
 before the build.
