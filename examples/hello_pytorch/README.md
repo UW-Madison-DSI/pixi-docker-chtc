@@ -41,8 +41,8 @@ docker run --rm -ti --gpus all uw-madison-dsi/hello_pytorch:jammy-cuda-12.6.3 ba
 ```console
 root@5789c0254776:/app# python ./src/torch_detect_GPU.py
 PyTorch build CUDA version: 12.6
-PyTorch build cuDNN version: 90300
-PyTorch build NCCL version: (2, 23, 4)
+PyTorch build cuDNN version: 90800
+PyTorch build NCCL version: (2, 25, 1)
 
 Number of GPUs found on system: 1
 
@@ -50,12 +50,12 @@ Active GPU index: 0
 Active GPU name: NVIDIA GeForce RTX 4060 Laptop GPU
 root@5789c0254776:/app# python ./src/torch_MNIST.py
 ...
-Train Epoch: 14 [57600/60000 (96%)]	Loss: 0.005053
-Train Epoch: 14 [58240/60000 (97%)]	Loss: 0.006250
-Train Epoch: 14 [58880/60000 (98%)]	Loss: 0.001895
-Train Epoch: 14 [59520/60000 (99%)]	Loss: 0.002306
+Train Epoch: 14 [57600/60000 (96%)]	Loss: 0.001337
+Train Epoch: 14 [58240/60000 (97%)]	Loss: 0.009490
+Train Epoch: 14 [58880/60000 (98%)]	Loss: 0.005959
+Train Epoch: 14 [59520/60000 (99%)]	Loss: 0.003723
 
-Test set: Average loss: 0.0264, Accuracy: 9913/10000 (99%)
+Test set: Average loss: 0.0276, Accuracy: 9916/10000 (99%)
 
 root@5789c0254776:/app#
 ```
