@@ -2,6 +2,7 @@
 
 docker system prune -f
 
+docker pull tonistiigi/binfmt
 docker pull ghcr.io/prefix-dev/pixi:jammy
 docker pull ghcr.io/prefix-dev/pixi:jammy-cuda-12.6.3
 
