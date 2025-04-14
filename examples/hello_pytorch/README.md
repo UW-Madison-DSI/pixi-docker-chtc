@@ -42,7 +42,7 @@ docker run --rm -ti --gpus all uw-madison-dsi/hello_pytorch:noble-cuda-12.6.3 ba
 root@5789c0254776:/app# python ./src/torch_detect_GPU.py
 PyTorch build CUDA version: 12.6
 PyTorch build cuDNN version: 90800
-PyTorch build NCCL version: (2, 25, 1)
+PyTorch build NCCL version: (2, 26, 2)
 
 Number of GPUs found on system: 1
 
