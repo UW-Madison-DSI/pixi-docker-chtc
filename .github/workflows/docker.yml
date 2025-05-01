@@ -2,10 +2,10 @@ name: Docker Images
 
 on:
   push:
-    branches:
-      - main
-    tags:
-      - 'v*'
+    # branches:
+    #   - main
+    # tags:
+    #   - 'v*'
   release:
     types: [published]
   workflow_dispatch:
@@ -25,27 +25,27 @@ jobs:
         with:
           fetch-depth: 0
 
-      # FIXME: https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
-      - name: Prepare
-        id: prep
-        run: |
-          VERSION=latest
-          REPO_NAME=${{github.repository}}
-          REPO_NAME_LOWERCASE="${REPO_NAME,,}"
-          if [[ $GITHUB_REF == refs/tags/* ]]; then
-            VERSION=${GITHUB_REF#refs/tags/}
-          elif [[ $GITHUB_REF == refs/pull/* ]]; then
-            VERSION=pr-${{ github.event.number }}
-          fi
-          TAGS="ghcr.io/${REPO_NAME_LOWERCASE}:${VERSION},ghcr.io/${REPO_NAME_LOWERCASE}:sha-${GITHUB_SHA::8}"
-          # Releases also have GITHUB_REFs that are tags, so reuse VERSION
-          if [ "${{ github.event_name }}" = "release" ]; then
-            TAGS="$TAGS,${DOCKER_IMAGE}:latest-stable,ghcr.io/${REPO_NAME_LOWERCASE}:latest-stable,ghcr.io/${REPO_NAME_LOWERCASE}:${VERSION}"
-          fi
-          echo ::set-output name=version::${VERSION}
-          echo ::set-output name=tags::${TAGS}
-          echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
-          echo ::set-output name=repo_name_lowercase::"${REPO_NAME_LOWERCASE}"
+      # # FIXME: https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
+      # - name: Prepare
+      #   id: prep
+      #   run: |
+      #     VERSION=latest
+      #     REPO_NAME=${{github.repository}}
+      #     REPO_NAME_LOWERCASE="${REPO_NAME,,}"
+      #     if [[ $GITHUB_REF == refs/tags/* ]]; then
+      #       VERSION=${GITHUB_REF#refs/tags/}
+      #     elif [[ $GITHUB_REF == refs/pull/* ]]; then
+      #       VERSION=pr-${{ github.event.number }}
+      #     fi
+      #     TAGS="ghcr.io/${REPO_NAME_LOWERCASE}:${VERSION},ghcr.io/${REPO_NAME_LOWERCASE}:sha-${GITHUB_SHA::8}"
+      #     # Releases also have GITHUB_REFs that are tags, so reuse VERSION
+      #     if [ "${{ github.event_name }}" = "release" ]; then
+      #       TAGS="$TAGS,${DOCKER_IMAGE}:latest-stable,ghcr.io/${REPO_NAME_LOWERCASE}:latest-stable,ghcr.io/${REPO_NAME_LOWERCASE}:${VERSION}"
+      #     fi
+      #     echo ::set-output name=version::${VERSION}
+      #     echo ::set-output name=tags::${TAGS}
+      #     echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+      #     echo ::set-output name=repo_name_lowercase::"${REPO_NAME_LOWERCASE}"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -61,16 +61,29 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # - name: Test build
+      #   id: docker_build_test
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: .
+      #     file: examples/hello_pytorch/Dockerfile
+      #     tags: ${{ steps.prep.outputs.tags }}
+      #     labels: |
+      #       org.opencontainers.image.source=${{ github.event.repository.html_url }}
+      #       org.opencontainers.image.created=${{ steps.prep.outputs.created }}
+      #       org.opencontainers.image.revision=${{ github.sha }}
+      #     load: true
+      #     push: false
+
       - name: Test build
         id: docker_build_test
         uses: docker/build-push-action@v6
         with:
           context: .
           file: examples/hello_pytorch/Dockerfile
-          tags: ${{ steps.prep.outputs.tags }}
+          tags: latest
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
-            org.opencontainers.image.created=${{ steps.prep.outputs.created }}
             org.opencontainers.image.revision=${{ github.sha }}
           load: true
           push: false
@@ -81,9 +94,16 @@ jobs:
       - name: List built images
         run: docker images
 
+      # - name: Run checks
+      #   # Need to run not below PWD to have non-root write with GHA
+      #   run: >-
+      #     docker run --rm
+      #     ghcr.io/${{ steps.prep.outputs.repo_name_lowercase }}:sha-${GITHUB_SHA::8}
+      #     bash -c "pixi info"
+
       - name: Run checks
         # Need to run not below PWD to have non-root write with GHA
         run: >-
           docker run --rm
-          ghcr.io/${{ steps.prep.outputs.repo_name_lowercase }}:sha-${GITHUB_SHA::8}
+          ghcr.io/uw-madison-dsi/pixi-docker-chtc:sha-${GITHUB_SHA::8}
           bash -c "pixi info"
