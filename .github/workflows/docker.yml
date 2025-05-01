@@ -80,7 +80,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: examples/hello_pytorch
-          file: Dockerfile
+          file: examples/hello_pytorch/Dockerfile
           tags: latest
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
