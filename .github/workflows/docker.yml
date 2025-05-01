@@ -79,8 +79,8 @@ jobs:
         id: docker_build_test
         uses: docker/build-push-action@v6
         with:
-          context: .
-          file: examples/hello_pytorch/Dockerfile
+          context: examples/hello_pytorch
+          file: Dockerfile
           tags: latest
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
