@@ -63,3 +63,9 @@ Number of GPUs found on system: 1
 Active GPU index: 0
 Active GPU name: Tesla P100-PCIE-16GB
 ```
+
+### Resources
+
+CHTC's documentation has good resources on how to effectively use GPU resources on CHTC.
+
+* [Use GPUS](https://chtc.cs.wisc.edu/uw-research-computing/gpu-jobs)
