@@ -81,7 +81,7 @@ jobs:
         with:
           context: examples/hello_pytorch
           file: examples/hello_pytorch/Dockerfile
-          tags: ghcr.io/uw-madison-dsi/pixi-docker-chtc:sha-${GITHUB_SHA::8}
+          tags: ghcr.io/uw-madison-dsi/pixi-docker-chtc:latest
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.revision=${{ github.sha }}
