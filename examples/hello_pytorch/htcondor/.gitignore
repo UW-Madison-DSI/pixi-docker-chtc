@@ -1,2 +1,5 @@
 # training data
 *.tar.gz
+
+# PyTorch models
+*.pt
