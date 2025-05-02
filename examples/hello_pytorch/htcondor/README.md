@@ -93,13 +93,30 @@ Active GPU name: Tesla P100-PCIE-16GB
 
 # Extract the training data:
 
+data/
+data/MNIST/
+data/MNIST/raw/
+data/MNIST/raw/train-images-idx3-ubyte.gz
+data/MNIST/raw/train-images-idx3-ubyte
+data/MNIST/raw/train-labels-idx1-ubyte.gz
+data/MNIST/raw/train-labels-idx1-ubyte
+data/MNIST/raw/t10k-images-idx3-ubyte.gz
+data/MNIST/raw/t10k-images-idx3-ubyte
+data/MNIST/raw/t10k-labels-idx1-ubyte.gz
+data/MNIST/raw/t10k-labels-idx1-ubyte
+data/MNIST/processed/
+data/MNIST/processed/training.pt
+data/MNIST/processed/test.pt
+
 # Train MNIST with PyTorch:
 ...
-Train Epoch: 14 [58240/60000 (97%)]	Loss: 0.035603
-Train Epoch: 14 [58880/60000 (98%)]	Loss: 0.001894
-Train Epoch: 14 [59520/60000 (99%)]	Loss: 0.007282
+Train Epoch: 14 [57600/60000 (96%)]	Loss: 0.000494
+Train Epoch: 14 [58240/60000 (97%)]	Loss: 0.012554
+Train Epoch: 14 [58880/60000 (98%)]	Loss: 0.016642
+Train Epoch: 14 [59520/60000 (99%)]	Loss: 0.001183
 
-Test set: Average loss: 0.0270, Accuracy: 9913/10000 (99%)
+Test set: Average loss: 0.0261, Accuracy: 9915/10000 (99%)
+
 ```
 
 The job will also return the trained model serialized as a PyTorch model archive named `mnist_cnn.pt`.
