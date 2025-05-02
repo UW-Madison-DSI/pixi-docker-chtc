@@ -11,5 +11,5 @@ echo -e "# Activating Pixi environment\n"
 echo -e "# Check to see if the NVIDIA drivers can correctly detect the GPU:\n"
 nvidia-smi
 
-echo -e "# Check if PyTorch can detect the GPU:\n"
+echo -e "\n# Check if PyTorch can detect the GPU:\n"
 python /app/src/torch_detect_GPU.py
