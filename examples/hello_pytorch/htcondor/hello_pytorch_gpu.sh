@@ -13,3 +13,6 @@ nvidia-smi
 
 echo -e "\n# Check if PyTorch can detect the GPU:\n"
 python /app/src/torch_detect_GPU.py
+
+echo -e "\n# Extract the training data:\n"
+tar -vxzf MNIST_data.tar.gz
