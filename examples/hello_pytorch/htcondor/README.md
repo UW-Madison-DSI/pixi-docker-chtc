@@ -119,7 +119,7 @@ Test set: Average loss: 0.0261, Accuracy: 9915/10000 (99%)
 
 ```
 
-The job will also return the trained model serialized as a PyTorch model archive named `mnist_cnn.pt`.
+The job will also return the trained model serialized as a PyTorch model named `mnist_cnn.pt`.
 
 ### Resources
 
