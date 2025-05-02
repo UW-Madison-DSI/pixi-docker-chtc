@@ -2,5 +2,5 @@
 
 This example contains two files:
 
-* `hello_pytorch.sub`: The HTCondor job submission file
-* `hello_pytorch.sh`: The commands that are run as the job
+* `hello_pytorch_gpu.sub`: The HTCondor job submission file
+* `hello_pytorch_gpu.sh`: The commands that are run as the job
