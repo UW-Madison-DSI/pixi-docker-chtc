@@ -47,6 +47,19 @@ jobs:
       #     echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
       #     echo ::set-output name=repo_name_lowercase::"${REPO_NAME_LOWERCASE}"
 
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ghcr.io/uw-madison-dsi/pixi-docker-chtc
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=raw,value=hello-pytorch-noble-cuda-12.6.3
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -81,10 +94,8 @@ jobs:
         with:
           context: examples/hello_pytorch
           file: examples/hello_pytorch/Dockerfile
-          tags: ghcr.io/uw-madison-dsi/pixi-docker-chtc:latest
-          labels: |
-            org.opencontainers.image.source=${{ github.event.repository.html_url }}
-            org.opencontainers.image.revision=${{ github.sha }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           pull: true
 
       - name: Deploy build
@@ -93,11 +104,10 @@ jobs:
         with:
           context: examples/hello_pytorch
           file: examples/hello_pytorch/Dockerfile
-          tags: ghcr.io/uw-madison-dsi/pixi-docker-chtc:latest
-          labels: |
-            org.opencontainers.image.source=${{ github.event.repository.html_url }}
-            org.opencontainers.image.revision=${{ github.sha }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           pull: true
+          # push: ${{ github.event_name != 'pull_request' }}
           push: true
 
       # Comment out as not loading image as too big
