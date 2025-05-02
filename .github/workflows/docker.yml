@@ -87,6 +87,19 @@ jobs:
             org.opencontainers.image.revision=${{ github.sha }}
           pull: true
 
+      - name: Deploy build
+        id: docker_build_deploy
+        uses: docker/build-push-action@v6
+        with:
+          context: examples/hello_pytorch
+          file: examples/hello_pytorch/Dockerfile
+          tags: ghcr.io/uw-madison-dsi/pixi-docker-chtc:latest
+          labels: |
+            org.opencontainers.image.source=${{ github.event.repository.html_url }}
+            org.opencontainers.image.revision=${{ github.sha }}
+          pull: true
+          push: true
+
       # Comment out as not loading image as too big
       # - name: Image digest
       #   run: echo ${{ steps.docker_build_test.outputs.digest }}
