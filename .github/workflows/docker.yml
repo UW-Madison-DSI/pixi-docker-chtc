@@ -85,8 +85,7 @@ jobs:
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.revision=${{ github.sha }}
-          load: true
-          push: false
+          pull: true
 
       - name: Image digest
         run: echo ${{ steps.docker_build_test.outputs.digest }}
