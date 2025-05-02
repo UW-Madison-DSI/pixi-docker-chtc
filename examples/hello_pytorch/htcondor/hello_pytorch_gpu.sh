@@ -30,4 +30,4 @@ fi
 echo -e "\n# Train MNIST with PyTorch:\n"
 mkdir -p run
 cd run
-time python /app/src/torch_MNIST.py
+time python /app/src/torch_MNIST.py --save-model
