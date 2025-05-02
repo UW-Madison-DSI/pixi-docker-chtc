@@ -81,28 +81,29 @@ jobs:
         with:
           context: examples/hello_pytorch
           file: examples/hello_pytorch/Dockerfile
-          tags: latest
+          tags: ghcr.io/uw-madison-dsi/pixi-docker-chtc:sha-${GITHUB_SHA::8}
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.revision=${{ github.sha }}
           pull: true
 
-      - name: Image digest
-        run: echo ${{ steps.docker_build_test.outputs.digest }}
+      # Comment out as not loading image as too big
+      # - name: Image digest
+      #   run: echo ${{ steps.docker_build_test.outputs.digest }}
 
-      - name: List built images
-        run: docker images
+      # - name: List built images
+      #   run: docker images
+
+      # # - name: Run checks
+      # #   # Need to run not below PWD to have non-root write with GHA
+      # #   run: >-
+      # #     docker run --rm
+      # #     ghcr.io/${{ steps.prep.outputs.repo_name_lowercase }}:sha-${GITHUB_SHA::8}
+      # #     bash -c "pixi info"
 
       # - name: Run checks
       #   # Need to run not below PWD to have non-root write with GHA
       #   run: >-
       #     docker run --rm
-      #     ghcr.io/${{ steps.prep.outputs.repo_name_lowercase }}:sha-${GITHUB_SHA::8}
+      #     ghcr.io/uw-madison-dsi/pixi-docker-chtc:sha-${GITHUB_SHA::8}
       #     bash -c "pixi info"
-
-      - name: Run checks
-        # Need to run not below PWD to have non-root write with GHA
-        run: >-
-          docker run --rm
-          ghcr.io/uw-madison-dsi/pixi-docker-chtc:sha-${GITHUB_SHA::8}
-          bash -c "pixi info"
