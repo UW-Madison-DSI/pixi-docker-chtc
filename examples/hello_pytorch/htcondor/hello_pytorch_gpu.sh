@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# detailed logging to stderr
+set -x
+
 echo -e "# Hello CHTC from Job ${1} running on $(hostname)\n"
 
 echo -e "# Activate Pixi environment\n"
@@ -15,4 +19,15 @@ echo -e "\n# Check if PyTorch can detect the GPU:\n"
 python /app/src/torch_detect_GPU.py
 
 echo -e "\n# Extract the training data:\n"
-tar -vxzf MNIST_data.tar.gz
+if [ -f "MNIST_data.tar.gz" ]; then
+    tar -vxzf MNIST_data.tar.gz
+else
+    echo "The training data archive, MNIST_data.tar.gz, is not found."
+    echo "Please transfer it to the worker node in the HTCondor jobs submission file."
+    exit 1
+fi
+
+echo -e "\n# Train MNIST with PyTorch:\n"
+mkdir -p run
+cd run
+python /app/src/torch_MNIST.py
