@@ -1,13 +1,28 @@
 # Running the Hello PyTorch example on CHTC
 
-This example contains two files:
+This example contains the files:
 
 * `hello_pytorch_gpu.sub`: The HTCondor job submission file
 * `hello_pytorch_gpu.sh`: The execute shells script that contains the commands that are run as the job
+* `submit.sh`: The shell script that submits `hello_pytorch_gpu.sub` to HTCondor as a standard batch job with `condor_submit`
+* `interact.sh`: The shell script that submits `hello_pytorch_gpu.sub` to HTCondor as an interactive job with `condor_submit -interactive`
 
 ## Running
 
-Example of job output in the resulting `hello_pytorch_gpu.out.txt`
+After logging onto CHTC and cloning this repository, navigate to this directory and run
+
+```
+bash submit.sh
+```
+
+This will submit the job and create the file `hello_pytorch_gpu.log.txt` which will have the job's log file written into it.
+After the job finishes, it additionally return the job's `stdout` and `stderr` files:
+
+* `docker_stderror`
+* `hello_pytorch_gpu.err.txt`
+* `hello_pytorch_gpu.out.txt`
+
+### Example of job output in the resulting `hello_pytorch_gpu.out.txt`
 
 ```
 # Hello CHTC from Job 0 running on gpu2000.chtc.wisc.edu
