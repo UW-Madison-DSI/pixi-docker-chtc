@@ -2,7 +2,7 @@
 authors = ["Matthew Feickert <matthew.feickert@cern.ch>"]
 channels = ["conda-forge"]
 description = "CUDA enabled PyTorch example to deploy in containers"
-name = "hello_pytorch"
+name = "hello-pytorch"
 platforms = ["linux-64"]
 version = "0.1.0"
 
