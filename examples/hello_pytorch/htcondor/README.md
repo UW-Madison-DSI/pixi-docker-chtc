@@ -97,3 +97,5 @@ Active GPU name: Tesla P100-PCIE-16GB
 CHTC's documentation has good resources on how to effectively use GPU resources on CHTC.
 
 * [Use GPUS](https://chtc.cs.wisc.edu/uw-research-computing/gpu-jobs)
+* [Explore and Test Docker Containers
+](https://chtc.cs.wisc.edu/uw-research-computing/docker-test.html)
