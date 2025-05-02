@@ -102,6 +102,8 @@ Train Epoch: 14 [59520/60000 (99%)]	Loss: 0.007282
 Test set: Average loss: 0.0270, Accuracy: 9913/10000 (99%)
 ```
 
+The job will also return the trained model serialized as a PyTorch model archive named `mnist_cnn.pt`.
+
 ### Resources
 
 CHTC's documentation has good resources on how to effectively use GPU resources on CHTC.
