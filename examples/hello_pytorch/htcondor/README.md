@@ -90,6 +90,16 @@ Number of GPUs found on system: 1
 
 Active GPU index: 0
 Active GPU name: Tesla P100-PCIE-16GB
+
+# Extract the training data:
+
+# Train MNIST with PyTorch:
+...
+Train Epoch: 14 [58240/60000 (97%)]	Loss: 0.035603
+Train Epoch: 14 [58880/60000 (98%)]	Loss: 0.001894
+Train Epoch: 14 [59520/60000 (99%)]	Loss: 0.007282
+
+Test set: Average loss: 0.0270, Accuracy: 9913/10000 (99%)
 ```
 
 ### Resources
