@@ -2,10 +2,10 @@ name: Docker Images
 
 on:
   push:
-    # branches:
-    #   - main
-    # tags:
-    #   - 'v*'
+    branches:
+      - main
+    tags:
+      - 'v*'
   release:
     types: [published]
   workflow_dispatch:
@@ -37,7 +37,7 @@ jobs:
             type=raw,value=latest
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
-            type=sha
+            # type=sha
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -72,5 +72,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           pull: true
-          # push: ${{ github.event_name != 'pull_request' }}
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
