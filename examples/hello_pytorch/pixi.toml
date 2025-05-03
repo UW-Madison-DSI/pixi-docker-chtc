@@ -38,9 +38,9 @@ cuda = "12"
 
 [dependencies]
 python = "3.13.*"
-pytorch-gpu = ">=2.5.1,<3"
-cuda-version = "12.6.*"
-torchvision = ">=0.20.1,<0.21"
+pytorch-gpu = ">=2.6.0,<3"
+cuda-version = "12.9.*"
+torchvision = ">=0.21.0,<0.22"
 
 [environments]
 prod = { features = [], solve-group = "prod" }
