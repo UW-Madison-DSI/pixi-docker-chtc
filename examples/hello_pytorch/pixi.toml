@@ -3,7 +3,8 @@ authors = ["Matthew Feickert <matthew.feickert@cern.ch>"]
 channels = ["conda-forge"]
 description = "CUDA enabled PyTorch example to deploy in containers"
 name = "hello-pytorch"
-platforms = ["linux-64"]
+# non-linux-64 platforms allow for any platform to create the pixi-pack archive
+platforms = ["linux-64", "osx-arm64", "win-64"]
 version = "0.1.0"
 
 [tasks]
@@ -36,7 +37,7 @@ dataset1 = datasets.MNIST('../data', train=True, download=True, transform=transf
 [system-requirements]
 cuda = "12"
 
-[dependencies]
+[target.linux-64.dependencies]
 python = "3.13.*"
 pytorch-gpu = ">=2.6.0,<3"
 cuda-version = "12.9.*"
