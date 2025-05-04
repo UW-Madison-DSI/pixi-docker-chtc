@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - 'ci/only-build-on-relevant-changes'
     tags:
       - 'v*'
     paths:
