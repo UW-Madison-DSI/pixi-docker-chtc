@@ -46,7 +46,7 @@ jobs:
             ghcr.io/uw-madison-dsi/pixi-docker-chtc
           # generate Docker tags based on the following events/attributes
           tags: |
-            type=raw,value=hello-pytorch-noble-cuda-12.6.3
+            type=raw,value=hello-pytorch-noble-cuda-12.9
             type=raw,value=latest
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}

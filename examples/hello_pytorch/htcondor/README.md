@@ -32,7 +32,7 @@ where the reasoning for the options is:
 ### Example using the example's container image
 
 ```
-docker run --rm -ti --gpus all --user 12345 -v $(pwd):/scratch -w /scratch ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.6.3 bash
+docker run --rm -ti --gpus all --user 12345 -v $(pwd):/scratch -w /scratch ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9 bash
 ```
 
 ## Running
