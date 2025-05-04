@@ -4,6 +4,7 @@
 set -x
 
 echo -e "# Hello CHTC from Job ${1} running on $(hostname)\n"
+echo -e "# GPUs assigned: ${CUDA_VISIBLE_DEVICES}\n"
 
 echo -e "# Activate Pixi environment\n"
 # The last line of the entrypoint.sh file is 'exec "$@"'. If this shell script
