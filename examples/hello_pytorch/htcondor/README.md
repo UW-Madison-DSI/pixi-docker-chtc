@@ -55,6 +55,8 @@ After the job finishes, it additionally return the job's `stdout` and `stderr` f
 ```
 # Hello CHTC from Job 0 running on gpu2000.chtc.wisc.edu
 
+# GPUs assigned: GPU-02b71a7d
+
 # Activate Pixi environment
 
 # Check to see if the NVIDIA drivers can correctly detect the GPU:
