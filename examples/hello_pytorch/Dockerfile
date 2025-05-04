@@ -10,7 +10,6 @@ RUN echo "#!/bin/bash" > /app/entrypoint.sh && \
 
 FROM ghcr.io/prefix-dev/pixi:noble AS production
 
-# ECHO REVERT
 WORKDIR /app
 COPY --from=build /app/.pixi/envs/prod /app/.pixi/envs/prod
 COPY --from=build /app/pixi.toml /app/pixi.toml
