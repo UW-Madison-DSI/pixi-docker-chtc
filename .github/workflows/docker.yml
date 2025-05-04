@@ -6,6 +6,11 @@ on:
       - main
     tags:
       - 'v*'
+    paths:
+      - 'examples/hello_pytorch/pixi.toml'
+      - 'examples/hello_pytorch/pixi.lock'
+      - 'examples/hello_pytorch/Dockerfile'
+      - 'examples/hello_pytorch/.dockerignore'
   pull_request:
   release:
     types: [published]
