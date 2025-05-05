@@ -2,12 +2,12 @@
 # Submit file to access the GPU via docker
 
 # set the log, error and output files
-log = hello_pytorch_gpu.log.txt
-error = hello_pytorch_gpu.err.txt
-output = hello_pytorch_gpu.out.txt
+log = hello_pytorch_gpu_pixi-pack.log.txt
+error = hello_pytorch_gpu_pixi-pack.err.txt
+output = hello_pytorch_gpu_pixi-pack.out.txt
 
 # set the executable to run
-executable = hello_pytorch_gpu.sh
+executable = hello_pytorch_gpu_pixi-pack.sh
 arguments = $(Process)
 
 # transfer training data files to the compute node
