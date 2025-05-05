@@ -69,7 +69,7 @@ cp environment.tar environment-"$(openssl sha256 -r environment.tar | cut -b -8)
 
 [feature.pack.target.linux-64.tasks.pack-executable-uuid]
 description = "Rename the pixi-pack executable with a UUID based on its hash"
-depends-on = ["pack"]
+depends-on = ["pack-executable"]
 cmd = """
 cp environment.sh environment-"$(openssl sha256 -r environment.sh | cut -b -8)".sh
 """
