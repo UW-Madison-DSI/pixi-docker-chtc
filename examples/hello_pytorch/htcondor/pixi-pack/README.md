@@ -35,19 +35,36 @@ activate.sh
 environment.sh
 ```
 
-These environment archives
-As these environment archives are
+These environment archives can be placed on CHTC's `/staging/<username>` storage where they are cached with [Pelican](https://pelicanplatform.org/), and transferred to HTCondor jobs using the
 
-### Summary
+```
+transfer_input_files = osdf:///chtc/staging/<username>/<archive name>
+```
 
-**Advantages**
+HTCondor submission syntax.
+
+**Example**:
+
+```
+transfer_input_files = osdf:///chtc/staging/mfeickert/envs/hello_pytorch/hello-pytorch-environment-b8dd14a4.sh
+```
+
+Pelican offers the advantage of [not limiting your jobs to running on locations where `/staging/` is mounted](https://chtc.cs.wisc.edu/uw-research-computing/scaling-htc#3-submitting-jobs-to-run-beyond-chtc).
+
+> [!WARNING]
+> Pelican treats all cached files as immutable, so each file placed on `/staging/` should have a unique name, such as including information about the file's hash in the file name
+> ```
+> cp environment.sh environment-"$(openssl sha256 -r environment.sh | cut -b -8)".sh
+> ```
+
+### Advantages
 
 * Another form of distribution for a fully reproducible software environment.
 * No requirement on Linux containers for use.
 * No requirement on Pixi for use.
 * The time to go from creating a software environment to using it can be reduced to a few minutes.
 
-**Disadvantages**
+### Disadvantages
 
 * As no Linux container is being mounted to the worker node, the HTCondor job requires substantially larger memory and disk resources than a typical job to be able to unpack the archive into the environment directory tree.
 * As the software environment needs to get unpacked for each job, this can take a substantial amount of time (multiple minutes) before any code execution can begin.
@@ -55,3 +72,7 @@ As these environment archives are
 > [!TIP]
 > This is why Linux container images being **executable filesystems** can be so important to their use.
 > No unpacking of the filesystem is needed, so Linux containers can start and be used almost immediately.
+
+## Resources
+
+* [Manage Large Data in HTC Jobs](https://chtc.cs.wisc.edu/uw-research-computing/file-avail-largedata.html)
