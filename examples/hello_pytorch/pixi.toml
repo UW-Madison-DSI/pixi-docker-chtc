@@ -64,9 +64,15 @@ outputs = ["environment.sh"]
 description = "Rename the pixi-pack archive with a UUID based on its hash"
 depends-on = ["pack"]
 cmd = """
-cp {{ archive }} environment-"$(openssl sha256 -r {{ archive }} | cut -b -8)".tar
+cp environment.tar environment-"$(openssl sha256 -r environment.tar | cut -b -8)".tar
 """
-args = [{ "arg" = "archive", "default" = "environment.tar" }]
+
+[feature.pack.target.linux-64.tasks.pack-executable-uuid]
+description = "Rename the pixi-pack executable with a UUID based on its hash"
+depends-on = ["pack"]
+cmd = """
+cp environment.sh environment-"$(openssl sha256 -r environment.sh | cut -b -8)".sh
+"""
 
 [environments]
 prod = { features = [], solve-group = "prod" }
