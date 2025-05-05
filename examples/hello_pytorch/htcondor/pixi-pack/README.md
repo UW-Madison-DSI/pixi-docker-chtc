@@ -67,6 +67,20 @@ Pelican offers the advantage of [not limiting your jobs to running on locations 
 ### Disadvantages
 
 * As no Linux container is being mounted to the worker node, the HTCondor job requires substantially larger memory and disk resources than a typical job to be able to unpack the archive into the environment directory tree.
+   - The Linux container jobs use
+
+```
+request_memory = 2GB
+request_disk = 2GB
+```
+
+while the `pixi-pack` jobs use
+
+```
+request_memory = 10GB
+request_disk = 14GB
+```
+
 * As the software environment needs to get unpacked for each job, this can take a substantial amount of time (multiple minutes) before any code execution can begin.
 
 > [!TIP]
