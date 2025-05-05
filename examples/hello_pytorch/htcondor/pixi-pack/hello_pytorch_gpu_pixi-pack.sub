@@ -29,7 +29,7 @@ request_gpus = 1
 # select some memory and disk space
 # Need larger memory and disk than normal as need to accommodate the environment being unpacked
 request_memory = 10GB
-request_disk = 11GB
+request_disk = 12GB
 
 # Opt in to using CHTC GPU Lab resources
 +WantGPULab = true
