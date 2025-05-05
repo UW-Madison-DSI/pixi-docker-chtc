@@ -16,9 +16,9 @@ pixi-pack pack --environment prod --platform linux-64 pixi.toml
 ```
 
 This will create an `environment.tar` archive with all of the packages required to create the Pixi environment.
-Once can use `pixi-pack unpack` to unpack the archive and create the environment locally on another machine.
+One can use `pixi-pack unpack` to unpack the archive and create the environment locally on another machine of the same target platform.
 
-In the event that the target machine does not have `pixi-pack` installed, `pix-pack` can create a self-extracting binary `environment.sh` with
+In the event that the target machine does not, and can't, have `pixi-pack` installed, `pixi-pack` can create a self-extracting binary `environment.sh` with
 
 ```
 pixi-pack pack --environment prod --platform linux-64 --create-executable pixi.toml
