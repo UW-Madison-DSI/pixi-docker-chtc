@@ -1,4 +1,4 @@
-# Running the Hello PyTorch example on CHTC
+# Running the Hello PyTorch example on CHTC GPUs with Linux containers
 
 This example contains the files:
 

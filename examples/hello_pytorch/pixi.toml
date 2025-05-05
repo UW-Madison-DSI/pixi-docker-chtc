@@ -51,6 +51,28 @@ description = "Pack the production environment into a pixi-pack archive"
 cmd = """
 pixi-pack pack --environment prod --platform linux-64 pixi.toml
 """
+outputs = ["environment.tar"]
+
+[feature.pack.tasks.pack-executable]
+description = "Pack the production environment into self-extracting executable"
+cmd = """
+pixi-pack pack --environment prod --platform linux-64 --create-executable pixi.toml
+"""
+outputs = ["environment.sh"]
+
+[feature.pack.target.linux-64.tasks.pack-uuid]
+description = "Rename the pixi-pack archive with a UUID based on its hash"
+depends-on = ["pack"]
+cmd = """
+cp environment.tar environment-"$(openssl sha256 -r environment.tar | cut -b -8)".tar
+"""
+
+[feature.pack.target.linux-64.tasks.pack-executable-uuid]
+description = "Rename the pixi-pack executable with a UUID based on its hash"
+depends-on = ["pack-executable"]
+cmd = """
+cp environment.sh environment-"$(openssl sha256 -r environment.sh | cut -b -8)".sh
+"""
 
 [environments]
 prod = { features = [], solve-group = "prod" }
