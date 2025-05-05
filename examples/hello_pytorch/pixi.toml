@@ -45,7 +45,6 @@ torchvision = ">=0.21.0,<0.22"
 
 [feature.pack.dependencies]
 pixi-pack = ">=0.6.1,<1"
-openssl = ">=3.5.0,<4"
 
 [feature.pack.tasks.pack]
 description = "Pack the production environment into a pixi-pack archive"
