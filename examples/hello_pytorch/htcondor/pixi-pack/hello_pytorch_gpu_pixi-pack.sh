@@ -7,7 +7,7 @@ echo -e "# Hello CHTC from Job ${1} running on $(hostname)\n"
 echo -e "# GPUs assigned: ${CUDA_VISIBLE_DEVICES}\n"
 
 echo -e "# Unpack and install pixi-pack environment\n"
-./environment.sh
+./hello-pytorch-environment-b8dd14a4.sh
 
 echo -e "# Activate environment\n"
 . activate.sh
