@@ -11,7 +11,7 @@ executable = hello_pytorch_gpu_pixi-pack.sh
 arguments = $(Process)
 
 # transfer training data files to the compute node
-transfer_input_files = transfer_input_files = osdf:///chtc/staging/mfeickert/environment.sh, MNIST_data.tar.gz, ../../src/torch_detect_GPU.py, ../../src/torch_MNIST.py
+transfer_input_files = transfer_input_files = osdf:///chtc/staging/mfeickert/envs/hello_pytorch/environment.sh, MNIST_data.tar.gz, ../../src/torch_detect_GPU.py, ../../src/torch_MNIST.py
 
 # transfer the serialized trained model back
 transfer_output_files = run/mnist_cnn.pt
