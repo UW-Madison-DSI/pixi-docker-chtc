@@ -45,11 +45,20 @@ torchvision = ">=0.21.0,<0.22"
 
 [feature.pack.dependencies]
 pixi-pack = ">=0.6.1,<1"
+openssl = ">=3.5.0,<4"
 
 [feature.pack.tasks.pack]
 description = "Pack the production environment into a pixi-pack archive"
 cmd = """
 pixi-pack pack --environment prod --platform linux-64 pixi.toml
+"""
+outputs = ["environment.tar"]
+
+[feature.pack.target.linux-64.tasks.pack-uuid]
+description = "Rename the pixi-pack archive with a UUID based on its hash"
+depends-on = ["pack"]
+cmd = """
+cp environment.tar environment-"$(openssl sha256 -r environment.tar | cut -b -8)".tar
 """
 
 [environments]
