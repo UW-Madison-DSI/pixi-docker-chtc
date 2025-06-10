@@ -2,7 +2,7 @@
 # Submit file to access the GPU via docker
 
 # SIF file is located on /staging
-container_image = osdf:///chtc/staging/path/to/pixi-docker-chtc.sif
+container_image = osdf:///chtc/staging/mfeickert/apptainer/pixi-docker-chtc.sif
 
 # set the log, error and output files
 log = hello_pytorch_gpu_apptainer.log.txt
