@@ -35,6 +35,30 @@ where the reasoning for the options is:
 docker run --rm -ti --gpus all --user 12345 -v $(pwd):/scratch -w /scratch ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9 bash
 ```
 
+### Example using the Apptainer image
+
+Note `.sif` stands for [Singularity Image Format](https://github.com/apptainer/sif).
+
+```
+apptainer build pixi-docker-chtc.sif oras://ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9-apptainer
+apptainer run --nv --containall pixi-docker-chtc.sif bash
+```
+
+To mimic the conditions of CHTC jobs that use Apptainer you can test with
+
+```
+apptainer exec \
+    --scratch /tmp \
+    --scratch /var/tmp \
+    --workdir $(pwd) \
+    --pwd $(pwd) \
+    --bind $(pwd) \
+    --no-home \
+    --containall \
+    --nv \
+    <container image file>.sif bash
+```
+
 ## Running
 
 After logging onto CHTC and cloning this repository, navigate to this directory and run
@@ -128,5 +152,5 @@ The job will also return the trained model serialized as a PyTorch model named `
 CHTC's documentation has good resources on how to effectively use GPU resources on CHTC.
 
 * [Use GPUS](https://chtc.cs.wisc.edu/uw-research-computing/gpu-jobs)
-* [Explore and Test Docker Containers
-](https://chtc.cs.wisc.edu/uw-research-computing/docker-test.html)
+* [Explore and Test Docker Containers](https://chtc.cs.wisc.edu/uw-research-computing/docker-test.html)
+* [Use an Apptainer Container in HTC Jobs](https://chtc.cs.wisc.edu/uw-research-computing/apptainer-htc#use-an-apptainer-container-in-htc-jobs)
