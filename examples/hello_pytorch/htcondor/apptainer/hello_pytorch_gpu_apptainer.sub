@@ -1,5 +1,5 @@
 # hello_pytorch_gpu_apptainer.sub
-# Submit file to access the GPU via docker
+# Submit file to access the GPU via apptainer
 
 # SIF file is located on /staging
 container_image = osdf:///chtc/staging/mfeickert/apptainer/pixi-docker-chtc.sif
