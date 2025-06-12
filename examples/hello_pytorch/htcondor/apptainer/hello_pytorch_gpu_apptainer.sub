@@ -32,7 +32,7 @@ request_gpus = 1
 
 # select some memory and disk space
 request_memory = 2GB
-request_disk = 10GB
+request_disk = 2GB
 
 # Opt in to using CHTC GPU Lab resources
 +WantGPULab = true
