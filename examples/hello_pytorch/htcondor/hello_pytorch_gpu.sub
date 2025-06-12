@@ -1,8 +1,8 @@
 # hello_pytorch_gpu.sub
 # Submit file to access the GPU via docker
 
-# Must set the universe to Docker
-universe = docker
+# Must set the universe to 'container' to use Docker
+universe = container
 # To avoid excessive pulls, and potential rate limits, set as "missing" (default value) unless "always" needed for updated tag
 docker_pull_policy = missing
 docker_image = ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9
