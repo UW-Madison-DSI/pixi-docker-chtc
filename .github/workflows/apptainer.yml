@@ -9,15 +9,13 @@ on:
     paths:
       - 'examples/hello_pytorch/pixi.toml'
       - 'examples/hello_pytorch/pixi.lock'
-      - 'examples/hello_pytorch/Dockerfile'
-      - 'examples/hello_pytorch/.dockerignore'
+      - 'examples/hello_pytorch/apptainer.def'
       - 'examples/hello_pytorch/src/**'
   pull_request:
     paths:
       - 'examples/hello_pytorch/pixi.toml'
       - 'examples/hello_pytorch/pixi.lock'
-      - 'examples/hello_pytorch/Dockerfile'
-      - 'examples/hello_pytorch/.dockerignore'
+      - 'examples/hello_pytorch/apptainer.def'
       - 'examples/hello_pytorch/src/**'
   release:
     types: [published]
