@@ -29,34 +29,10 @@ where the reasoning for the options is:
 * `--user 12345`: Runs as a user that does not exist in `/etc/passwd` and so will default to a nameless user with the same permissions as a CHTC job
 * `-v $(pwd):/scratch -w /scratch`: Mounts the current working directory to `/scratch` in the container filesystem and sets the container working directory there as well
 
-### Example using the example's container image
+### Example using the example's Docker container image
 
 ```
 docker run --rm -ti --gpus all --user 12345 -v $(pwd):/scratch -w /scratch ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9 bash
-```
-
-### Example using the Apptainer image
-
-Note `.sif` stands for [Singularity Image Format](https://github.com/apptainer/sif).
-
-```
-apptainer build pixi-docker-chtc.sif oras://ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9-apptainer
-apptainer run --nv --containall pixi-docker-chtc.sif bash
-```
-
-To mimic the conditions of CHTC jobs that use Apptainer you can test with
-
-```
-apptainer exec \
-    --scratch /tmp \
-    --scratch /var/tmp \
-    --workdir $(pwd) \
-    --pwd $(pwd) \
-    --bind $(pwd) \
-    --no-home \
-    --containall \
-    --nv \
-    <container image file>.sif bash
 ```
 
 ## Running
