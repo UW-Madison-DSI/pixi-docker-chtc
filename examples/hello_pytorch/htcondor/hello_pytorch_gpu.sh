@@ -34,4 +34,4 @@ ls -1ap ./src/
 echo -e "\n# Train MNIST with PyTorch:\n"
 mkdir -p run
 cd run
-time python ./src/torch_MNIST.py --epochs 14 --save-model
+time python ../src/torch_MNIST.py --epochs 14 --save-model
