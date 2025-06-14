@@ -28,7 +28,10 @@ else
     exit 1
 fi
 
+echo -e "\n# Check that the training code exists:\n"
+ls -1ap ./src/
+
 echo -e "\n# Train MNIST with PyTorch:\n"
 mkdir -p run
 cd run
-time python /app/src/torch_MNIST.py --epochs 14 --save-model
+time python ./src/torch_MNIST.py --epochs 14 --save-model
