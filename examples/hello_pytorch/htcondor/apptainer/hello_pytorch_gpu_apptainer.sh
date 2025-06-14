@@ -13,8 +13,13 @@ echo -e "# Activate Pixi environment\n"
 # instead.
 . <(sed '$d' /app/entrypoint.sh)
 
-echo -e "# Check to see if the NVIDIA drivers can correctly detect the GPU:\n"
-nvidia-smi
+# Note: Use of nvidia-smi in Apptainer requires the '--nvccli' option.
+# https://apptainer.org/docs/user/main/gpu.html#nvidia-gpus-cuda-nvidia-container-cli
+# As of 2025-06-12, CHTC supports '--nv' but not '--nvccli' and so 'nvidia-smi'
+# can not be used.
+#
+# echo -e "# Check to see if the NVIDIA drivers can correctly detect the GPU:\n"
+# nvidia-smi
 
 echo -e "\n# Check if PyTorch can detect the GPU:\n"
 python /app/src/torch_detect_GPU.py
@@ -28,10 +33,7 @@ else
     exit 1
 fi
 
-echo -e "\n# Check that the training code exists:\n"
-ls -1ap ./src/
-
 echo -e "\n# Train MNIST with PyTorch:\n"
 mkdir -p run
 cd run
-time python ../src/torch_MNIST.py --epochs 14 --save-model
+time python /app/src/torch_MNIST.py --epochs 14 --save-model
