@@ -4,7 +4,7 @@
 # Must set the universe to 'container' to use Docker
 universe = container
 # To avoid excessive pulls, and potential rate limits, set as "missing" (default value) unless "always" needed for updated tag
-container_pull_policy = missing
+docker_pull_policy = missing
 container_image = docker://ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9
 
 # set the log, error and output files
