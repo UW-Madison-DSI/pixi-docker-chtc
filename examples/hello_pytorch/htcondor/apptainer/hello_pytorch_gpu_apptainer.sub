@@ -2,7 +2,7 @@
 # Submit file to access the GPU via apptainer
 
 universe = container
-container_image = oras://ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9-apptainer
+container_image = oras://ghcr.io/uw-madison-dsi/pixi-docker-chtc:apptainer-hello-pytorch-noble-cuda-12.9
 
 # set the log, error and output files
 log = hello_pytorch_gpu_apptainer.log.txt

@@ -16,7 +16,7 @@ However, the overlay system of Apptainer is different from Docker, which means t
 In might be advantageous, depending on your situation, to instead write an [Apptainer `.def` definition file](https://apptainer.org/docs/user/main/definition_files.html), giving full control over the commands, and then build that `.def` file into an `.sif` Apptainer container image.
 
 ```
-apptainer build pixi-docker-chtc.sif oras://ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9-apptainer
+apptainer build pixi-docker-chtc.sif oras://ghcr.io/uw-madison-dsi/pixi-docker-chtc:apptainer-hello-pytorch-noble-cuda-12.9
 apptainer run --nv --containall pixi-docker-chtc.sif bash
 ```
 

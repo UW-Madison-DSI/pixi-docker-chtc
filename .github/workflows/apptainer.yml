@@ -71,4 +71,5 @@ jobs:
         if: github.event_name != 'pull_request'
         working-directory: ./examples/hello_pytorch
         # can't use 'ghcr.io/${{ github.repository }}' as GitHub org is case sensitive
-        run: apptainer push pixi-docker-chtc.sif oras://ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9-apptainer
+        run: |
+          apptainer push pixi-docker-chtc.sif oras://ghcr.io/uw-madison-dsi/pixi-docker-chtc:apptainer-hello-pytorch-noble-cuda-12.9
