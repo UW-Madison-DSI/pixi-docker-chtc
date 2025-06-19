@@ -1,4 +1,4 @@
-# Running the Hello PyTorch example on CHTC GPUs with Apptainer `pixi-pack`
+# Running the Hello PyTorch example on CHTC GPUs with Apptainer
 
 This example contains the files:
 
@@ -35,10 +35,39 @@ apptainer exec \
     <container image file>.sif bash
 ```
 
+where the [`--nv` flag](https://apptainer.org/docs/user/latest/gpu.html#nvidia-gpus-cuda-standard) supports NVIDIA CUDA devices like GPUs.
+
 ## Differences from using Docker containers
 
-Unlike Docker jobs, there is no "container universe" for CHTC jobs that use Apptainer, which means that we need to make the `.sif` container image file available to the worker nodes to use.
-We do this by placing the container images on CHTC's `/staging/<username>` storage where they are cached with [Pelican](https://pelicanplatform.org/), and transferred to HTCondor jobs using the
+Docker is the only supported containerization system under the container universe that includes an image cache, and so Docker jobs have the ability to set the [`docker_pull_policy`](https://htcondor.readthedocs.io/en/latest/man-pages/condor_submit.html#docker_pull_policy).
+The `docker_pull_policy` is used on HTCondor [Execution Points](https://htcondor.readthedocs.io/en/latest/admin-manual/ep-policy-configuration.html#configuration-for-execution-points) (EP) that use Docker and is ignored on EPs that use Apptainer.
+As HTCondor does not provide its own cache management for container images it can transfer a `.sif` file or expanded SIF directory from an HTCondor [Access Point](https://htcondor.readthedocs.io/en/latest/admin-manual/ap-policy-configuration.html#configuration-for-access-points) (AP) upon request.
+(Source: [Email exchange with Jaime Frey in June 2025](https://github.com/UW-Madison-DSI/pixi-docker-chtc/pull/17#discussion_r2153136096).)
+
+### Transferring `.sif` files to HTCondor Execution Points
+
+The transferring of `.sif` files can happen one of two ways.
+Both involve setting the `container` universe in the submission file along with giving an endpoint for the `container_image`.
+
+#### Using a remote container registry
+
+If the `.sif` file exists on a container registry then the container `.sif` file can be provided to the `container_image` argument [using the `oras://` prefix](https://htcondor.readthedocs.io/en/latest/users-manual/env-of-job.html#container-universe-jobs).
+
+```
+universe = container
+container_image = oras://<container registry domain>/<account>/<container name>:<tag>
+```
+
+**Example**:
+
+```
+universe = container
+container_image = oras://ghcr.io/uw-madison-dsi/pixi-docker-chtc:apptainer-hello-pytorch-noble-cuda-12.9
+```
+
+#### Transferring from CHTC `/staging`
+
+Container `.sif` files on CHTC's `/staging/<username>` storage are cached with [ODSF](https://osg-htc.org/services/osdf), and transferred to HTCondor jobs using the
 
 ```
 container_image = osdf:///chtc/staging/<username>/<container image name>.sif
@@ -52,10 +81,10 @@ HTCondor submission syntax.
 container_image = osdf:///chtc/staging/mfeickert/apptainer/pixi-docker-chtc-54990e82.sif
 ```
 
-Pelican offers the advantage of [not limiting your jobs to running on locations where `/staging/` is mounted](https://chtc.cs.wisc.edu/uw-research-computing/scaling-htc#3-submitting-jobs-to-run-beyond-chtc).
+OSDF offers the advantage of [not limiting your jobs to running on locations where `/staging/` is mounted](https://chtc.cs.wisc.edu/uw-research-computing/scaling-htc#3-submitting-jobs-to-run-beyond-chtc).
 
 > [!WARNING]
-> Pelican treats all cached files as immutable, so each file placed on `/staging/` should have a unique name, such as including information about the file's hash in the file name
+> OSDF and Pelican treat all cached files as immutable, so each file placed on `/staging/` should have a unique name, such as including information about the file's hash in the file name
 > ```
 > mv pixi-docker-chtc.sif pixi-docker-chtc-"$(openssl sha256 -r pixi-docker-chtc.sif | cut -b -8)".sif
 > ```
@@ -63,26 +92,13 @@ Pelican offers the advantage of [not limiting your jobs to running on locations 
 ### Advantages
 
 * Apptainer is the HTC and HPC industry standard for secure Linux containers.
-* Apptainer should be supported at all HTC and HPC environments, making workflows easier to port.
+* Apptainer should be supported at all HTC and HPC environments, making workflows easier to port across facilities.
 
 ### Disadvantages
 
-* As the container image needs to be copied to the worker nodes (there is no additional technology to handle the mounting), the HTCondor job requires substantially larger memory and disk resources than a typical job to be able to unpack the archive into the environment directory tree.
-   - The Linux container jobs use
-
-```
-request_memory = 2GB
-request_disk = 2GB
-```
-
-while the Apptainer jobs use
-
-```
-request_memory = 4GB
-request_disk = 10GB
-```
-
-* As the container images needs to get run on the worker node for each job, this can take a substantial amount of time (multiple minutes) before any code execution can begin, and so workflows on Apptainer containers might start slower than Docker containers..
+* The HTCondor `container` universe does not have a supported image cache for Apptainer `.sif` files, and HTCondor does not provide its own cache management for container images, and so if a remote container registry is used the container files will not be cached and will be repulled.
+The can make some jobs slower to start to run than Docker universe jobs.
+* If the OSDF `/staging/` cache is used, the user is now responsible for managing the transferring of `.sif` container files to the `/staging/` storage and providing unique file names for them to avoid issues with OSDF's immutable cache.
 
 ## Resources
 
