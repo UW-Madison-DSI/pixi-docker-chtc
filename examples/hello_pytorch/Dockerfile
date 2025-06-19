@@ -18,7 +18,10 @@ COPY --from=build /app/pixi.lock /app/pixi.lock
 COPY --from=build /app/.gitignore /app/.pixi/.gitignore
 COPY --from=build /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
 COPY --from=build --chmod=0755 /app/entrypoint.sh /app/entrypoint.sh
-COPY ./src /app/src
+
+# Copy only application config or utility files
+# Runtime code should be transfer over during the job
+COPY ./src/torch_detect_GPU.py /app/src/torch_detect_GPU.py
 
 EXPOSE 8000
 ENTRYPOINT [ "/app/entrypoint.sh" ]

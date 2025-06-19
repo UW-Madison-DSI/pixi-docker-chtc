@@ -33,7 +33,9 @@ Stage: final
 /app/entrypoint.sh /app/entrypoint.sh
 
 %files
-./src /app/src
+# Copy only application config or utility files
+# Runtime code should be transfer over during the job
+./src/torch_detect_GPU.py /app/src/
 
 %post
 #!/bin/bash
