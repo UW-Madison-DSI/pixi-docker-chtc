@@ -14,7 +14,7 @@ executable = hello_pytorch_gpu_apptainer.sh
 arguments = $(Process)
 
 # transfer training data files to the compute node
-transfer_input_files = MNIST_data.tar.gz
+transfer_input_files = MNIST_data.tar.gz,../../src
 
 # transfer the serialized trained model back
 transfer_output_files = run/mnist_cnn.pt
