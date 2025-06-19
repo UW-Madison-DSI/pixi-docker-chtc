@@ -36,20 +36,6 @@ jobs:
       packages: write
 
     steps:
-
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          # generate Docker tags based on the following events/attributes
-          tags: |
-            type=sha
-
-      - name: DEBUG
-        run: |
-          echo "steps.meta.outputs.tags = ${{ steps.meta.outputs.tags }}"
-          echo "github.sha = ${{ github.sha }}"
-
       - name: Free disk space
         uses: AdityaGarg8/remove-unwanted-software@v5
         with:
@@ -81,10 +67,20 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Docker meta
+        if: github.event_name != 'pull_request'
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          # generate container tags based on the following events/attributes
+          tags: |
+            type=sha
+
       - name: Deploy built container
         if: github.event_name != 'pull_request'
         working-directory: ./examples/hello_pytorch
         # can't use 'ghcr.io/${{ github.repository }}' as GitHub org is case sensitive
         run: |
           apptainer push pixi-docker-chtc.sif oras://ghcr.io/uw-madison-dsi/pixi-docker-chtc:apptainer-hello-pytorch-noble-cuda-12.9
-          apptainer push pixi-docker-chtc.sif oras://ghcr.io/uw-madison-dsi/pixi-docker-chtc:apptainer-${{ github.sha }}
+          # ${{ steps.meta.outputs.tags }} is just the SHA
+          apptainer push pixi-docker-chtc.sif oras://ghcr.io/uw-madison-dsi/pixi-docker-chtc:apptainer-${{ steps.meta.outputs.tags }}
