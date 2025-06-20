@@ -39,7 +39,7 @@ where the [`--nv` flag](https://apptainer.org/docs/user/latest/gpu.html#nvidia-g
 
 ## Differences from using Docker containers
 
-Docker is the only supported containerization system under the container universe that includes an image cache, and so Docker jobs have the ability to set the [`docker_pull_policy`](https://htcondor.readthedocs.io/en/latest/man-pages/condor_submit.html#docker_pull_policy).
+Docker is the only supported containerization system under the [container universe](https://htcondor.readthedocs.io/en/latest/users-manual/env-of-job.html#container-universe-jobs) that includes an image cache, and so Docker jobs have the ability to set the [`docker_pull_policy`](https://htcondor.readthedocs.io/en/latest/man-pages/condor_submit.html#docker_pull_policy).
 The `docker_pull_policy` is used on HTCondor [Execution Points](https://htcondor.readthedocs.io/en/latest/admin-manual/ep-policy-configuration.html#configuration-for-execution-points) (EP) that use Docker and is ignored on EPs that use Apptainer.
 As HTCondor does not provide its own cache management for container images it can transfer a `.sif` file or expanded SIF directory from an HTCondor [Access Point](https://htcondor.readthedocs.io/en/latest/admin-manual/ap-policy-configuration.html#configuration-for-access-points) (AP) upon request.
 (Source: [Email exchange with Jaime Frey in June 2025](https://github.com/UW-Madison-DSI/pixi-docker-chtc/pull/17#discussion_r2153136096).)
