@@ -10,13 +10,13 @@ on:
       - 'examples/hello_pytorch/pixi.toml'
       - 'examples/hello_pytorch/pixi.lock'
       - 'examples/hello_pytorch/apptainer.def'
-      - 'examples/hello_pytorch/src/**'
+      - 'examples/hello_pytorch/src/torch_detect_GPU.py'
   pull_request:
     paths:
       - 'examples/hello_pytorch/pixi.toml'
       - 'examples/hello_pytorch/pixi.lock'
       - 'examples/hello_pytorch/apptainer.def'
-      - 'examples/hello_pytorch/src/**'
+      - 'examples/hello_pytorch/src/torch_detect_GPU.py'
   release:
     types: [published]
   workflow_dispatch:
