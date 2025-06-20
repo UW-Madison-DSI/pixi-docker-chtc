@@ -29,7 +29,7 @@ where the reasoning for the options is:
 * `--user 12345`: Runs as a user that does not exist in `/etc/passwd` and so will default to a nameless user with the same permissions as a CHTC job
 * `-v $(pwd):/scratch -w /scratch`: Mounts the current working directory to `/scratch` in the container filesystem and sets the container working directory there as well
 
-### Example using the example's container image
+### Example using the example's Docker container image
 
 ```
 docker run --rm -ti --gpus all --user 12345 -v $(pwd):/scratch -w /scratch ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9 bash
@@ -128,5 +128,5 @@ The job will also return the trained model serialized as a PyTorch model named `
 CHTC's documentation has good resources on how to effectively use GPU resources on CHTC.
 
 * [Use GPUS](https://chtc.cs.wisc.edu/uw-research-computing/gpu-jobs)
-* [Explore and Test Docker Containers
-](https://chtc.cs.wisc.edu/uw-research-computing/docker-test.html)
+* [Explore and Test Docker Containers](https://chtc.cs.wisc.edu/uw-research-computing/docker-test.html)
+* [Use an Apptainer Container in HTC Jobs](https://chtc.cs.wisc.edu/uw-research-computing/apptainer-htc#use-an-apptainer-container-in-htc-jobs)
