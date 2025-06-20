@@ -99,6 +99,21 @@ OSDF offers the advantage of [not limiting your jobs to running on locations whe
 * The HTCondor `container` universe does not have a supported image cache for Apptainer `.sif` files, and HTCondor does not provide its own cache management for container images, and so if a remote container registry is used the container files will not be cached and will be repulled.
 The can make some jobs slower to start to run than Docker universe jobs.
 * If the OSDF `/staging/` cache is used, the user is now responsible for managing the transferring of `.sif` container files to the `/staging/` storage and providing unique file names for them to avoid issues with OSDF's immutable cache.
+* The Apptainer container universe jobs seem to take a bit more disk just to have the `.sif` container file be mounted to the worker node.
+   - The Docker universe container jobs use
+
+```
+request_memory = 2GB
+request_disk = 2GB
+```
+
+while the Apptainer jobs use
+
+```
+request_memory = 2GB
+request_disk = 4GB
+```
+
 
 ## Resources
 
