@@ -40,5 +40,11 @@ request_disk = 6GB
 # Can also request "medium" or "long"
 +GPUJobLength = "short"
 
+# disable X11 forwarding
++WantX11 = False
+
+# Ensure pseudoterminal
+request_pty = True
+
 # Tell HTCondor to run 1 instances of our job:
 queue 1
