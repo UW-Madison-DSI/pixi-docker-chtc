@@ -35,7 +35,7 @@ bash build.sh
 > ```
 
 ```
-docker run --rm -ti --gpus all ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9 bash
+docker run --rm -ti --gpus all -v $PWD:/app -w /app ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9 bash
 ```
 
 ```console
@@ -63,11 +63,11 @@ root@5789c0254776:/app#
 or use the `pixi` tasks
 
 ```
-docker run --rm --gpus all ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9 pixi run train-mnist
+docker run --rm --gpus all -v $PWD:/app -w /app ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9 pixi run train-mnist
 ```
 
 or the explicit commands
 
 ```
-docker run --rm --gpus all ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9 python ./src/torch_MNIST.py
+docker run --rm --gpus all -v $PWD:/app -w /app ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9 python ./src/torch_MNIST.py
 ```

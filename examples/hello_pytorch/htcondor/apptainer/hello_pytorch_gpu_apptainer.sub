@@ -17,7 +17,7 @@ arguments = $(Process)
 transfer_input_files = MNIST_data.tar.gz,../../src
 
 # transfer the serialized trained model back
-transfer_output_files = run/mnist_cnn.pt
+transfer_output_files = mnist_cnn.pt
 
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
