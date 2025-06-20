@@ -1,11 +1,11 @@
 # hello_pytorch_gpu.sub
 # Submit file to access the GPU via docker
 
-# Must set the universe to Docker
-universe = docker
+# Must set the universe to 'container' to use Docker
+universe = container
 # To avoid excessive pulls, and potential rate limits, set as "missing" (default value) unless "always" needed for updated tag
 docker_pull_policy = missing
-docker_image = ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9
+container_image = docker://ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9
 
 # set the log, error and output files
 log = hello_pytorch_gpu.log.txt
@@ -16,8 +16,8 @@ output = hello_pytorch_gpu.out.txt
 executable = hello_pytorch_gpu.sh
 arguments = $(Process)
 
-# transfer training data files to the compute node
-transfer_input_files = MNIST_data.tar.gz
+# transfer training data files and runtime source files to the compute node
+transfer_input_files = MNIST_data.tar.gz,../src
 
 # transfer the serialized trained model back
 transfer_output_files = run/mnist_cnn.pt
