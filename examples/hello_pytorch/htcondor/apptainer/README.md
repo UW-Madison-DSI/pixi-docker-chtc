@@ -78,15 +78,15 @@ HTCondor submission syntax.
 **Example**:
 
 ```
-container_image = osdf:///chtc/staging/mfeickert/apptainer/pixi-docker-chtc-54990e82.sif
+container_image = osdf:///chtc/staging/mfeickert/apptainer/pixi-docker-chtc-sha-80ec247.sif
 ```
 
 OSDF offers the advantage of [not limiting your jobs to running on locations where `/staging/` is mounted](https://chtc.cs.wisc.edu/uw-research-computing/scaling-htc#3-submitting-jobs-to-run-beyond-chtc).
 
 > [!WARNING]
-> OSDF and Pelican treat all cached files as immutable, so each file placed on `/staging/` should have a unique name, such as including information about the file's hash in the file name
+> OSDF and Pelican treat all cached files as immutable, so each file placed on `/staging/` should have a unique name, such as including information about the repository's Git commit SHA in the file name
 > ```
-> mv pixi-docker-chtc.sif pixi-docker-chtc-"$(openssl sha256 -r pixi-docker-chtc.sif | cut -b -8)".sif
+> mv pixi-docker-chtc.sif pixi-docker-chtc-sha-"$(git rev-parse --verify --short HEAD)".sif
 > ```
 
 ### Advantages
