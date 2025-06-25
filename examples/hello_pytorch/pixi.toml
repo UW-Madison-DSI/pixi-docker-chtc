@@ -20,7 +20,7 @@ python ./src/torch_detect_GPU.py
 [tasks.train-mnist]
 description = "Train a simple PyTorch neural net classifier on the MNIST dataset"
 cmd = """
-python ./src/torch_MNIST.py
+python ./src/torch_MNIST.py --save-model
 """
 
 [tasks.download-mnist]
