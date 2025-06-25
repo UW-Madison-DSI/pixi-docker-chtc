@@ -42,6 +42,7 @@ python = "3.13.*"
 pytorch-gpu = ">=2.6.0,<3"
 cuda-version = "12.9.*"
 torchvision = ">=0.21.0,<0.22"
+matplotlib = ">=3.10.3,<4"
 
 [feature.pack.dependencies]
 pixi-pack = ">=0.7.1,<0.8"
