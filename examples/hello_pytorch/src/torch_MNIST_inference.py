@@ -9,6 +9,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 
 
+# Use the CNN architecture defined in torch_MNIST.py
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
