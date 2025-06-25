@@ -1,5 +1,5 @@
 # c.f. https://www.kaggle.com/code/geekysaint/solving-mnist-using-pytorch#Training-the-Model
-# c.f. https://docs.pytorch.org/tutorials/beginner/saving_loading_models.html
+# c.f. https://docs.pytorch.org/tutorials/beginner/saving_loading_models.html#saving-loading-model-for-inference
 
 import torch
 import torch.nn as nn
@@ -35,7 +35,7 @@ class Net(nn.Module):
         return output
 
 
-data_dir = Path(Path(__file__).parent / "data").resolve()
+data_dir = Path(Path(__file__).parents[1] / "data").resolve()
 
 # test_dataset = MNIST(root = 'data/', train = False, transform = transforms.ToTensor())
 
@@ -46,12 +46,19 @@ test_dataset = datasets.MNIST(data_dir, train=False, transform=transform)
 # test_loader = torch.utils.data.DataLoader(test_dataset, **test_kwargs)
 
 # Model class must be defined somewhere
-model_path = Path(Path(__file__).parent / "mnist_cnn.pt").resolve()
-model = torch.load(model_path, weights_only=False)
+model_path = Path(Path(__file__).parents[1] / "mnist_cnn.pt").resolve()
+state_dict = torch.load(model_path, weights_only=True)
+
+# Remember that you must call model.eval() to set dropout and batch normalization
+# layers to evaluation mode before running inference.
+# Failing to do this will yield inconsistent inference results.
+model = Net()
+model.load_state_dict(state_dict)
 model.eval()
 
 img, label = test_dataset[0]
 plt.imshow(img[0], cmap="gray")
+# plt.show()
 print("shape: ", img.shape)
 print("Label: ", label)
 
@@ -66,6 +73,7 @@ def predict_image(img, model):
     return preds[0].item()
 
 
-img, label = test_dataset[25]
+img, label = test_dataset[250]
 plt.imshow(img[0], cmap="gray")
+plt.show()
 print("Label:", label, ",Predicted:", predict_image(img, model))
