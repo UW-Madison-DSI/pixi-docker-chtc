@@ -29,7 +29,9 @@ when_to_transfer_output = ON_EXIT
 # requirements = (HasCHTCStaging == true)
 # Don't use CentOS7 to ensure pty support
 requirements = (OpSysMajorVer > 7)
-gpus_minimum_capability = 7.5
+# Check against the CUDA GPU Compute Capability for your software
+# e.g. python -c "import torch; print(torch.cuda.get_arch_list())"
+gpus_minimum_capability = 6.0
 
 # We must request 1 CPU in addition to 1 GPU
 request_cpus = 1
