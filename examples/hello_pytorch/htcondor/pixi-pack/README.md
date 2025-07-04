@@ -12,7 +12,7 @@ This example contains the files:
 As the Pixi environment is fully specified through the `pixi.lock` lock file, it is possible to download all of the environment conda packages and export them into an archive with [`pixi-pack`](https://pixi.sh/latest/deployment/pixi_pack/).
 
 ```
-pixi-pack pack --environment prod --platform linux-64 pixi.toml
+pixi pack --environment prod --platform linux-64 pixi.toml
 ```
 
 This will create an `environment.tar` archive with all of the packages required to create the Pixi environment.
@@ -21,7 +21,7 @@ One can use `pixi-pack unpack` to unpack the archive and create the environment 
 In the event that the target machine does not, and can't, have `pixi-pack` installed, `pixi-pack` can create a self-extracting binary `environment.sh` with
 
 ```
-pixi-pack pack --environment prod --platform linux-64 --create-executable pixi.toml
+pixi pack --environment prod --platform linux-64 --create-executable pixi.toml
 ```
 
 which when executed on a target machine of the same platform extracts the environment directory tree and an activation script from the archive
