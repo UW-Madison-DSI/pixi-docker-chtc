@@ -44,19 +44,19 @@ cuda-version = "12.9.*"
 torchvision = ">=0.21.0,<0.22"
 
 [feature.pack.dependencies]
-pixi-pack = ">=0.6.1,<1"
+pixi-pack = ">=0.7.1,<0.8"
 
 [feature.pack.tasks.pack]
 description = "Pack the production environment into a pixi-pack archive"
 cmd = """
-pixi-pack pack --environment prod --platform linux-64 pixi.toml
+pixi pack --environment prod --platform linux-64 pixi.toml
 """
 outputs = ["environment.tar"]
 
 [feature.pack.tasks.pack-executable]
 description = "Pack the production environment into self-extracting executable"
 cmd = """
-pixi-pack pack --environment prod --platform linux-64 --create-executable pixi.toml
+pixi pack --environment prod --platform linux-64 --create-executable pixi.toml
 """
 outputs = ["environment.sh"]
 
