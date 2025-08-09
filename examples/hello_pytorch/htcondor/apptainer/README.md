@@ -123,3 +123,4 @@ In particular, this tends to happen with issues related to X11 and pseudotermina
 
 * [Manage Large Data in HTC Jobs](https://chtc.cs.wisc.edu/uw-research-computing/file-avail-largedata.html)
 * [Use an Apptainer Container in HTC Jobs](https://chtc.cs.wisc.edu/uw-research-computing/apptainer-htc#use-an-apptainer-container-in-htc-jobs)
+* [HTCondor Documentation "Commands for Matchmaking" section with GPU specific arguments](https://htcondor.readthedocs.io/en/latest/man-pages/condor_submit.html#gpus_minimum_memory)
