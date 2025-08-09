@@ -1,3 +1,4 @@
+# Declare build ARGS in global scope
 ARG CUDA_VERSION="12"
 ARG ENVIRONMENT="gpu"
 
