@@ -31,12 +31,6 @@ requirements = (GPUs_DriverVersion >= 12.0)
 # Don't use CentOS7 to ensure pty support
 requirements = (OpSysMajorVer > 7)
 
-# Optional: specify the GPU hardware architecture required
-# Check against the CUDA GPU Compute Capability for your software
-# e.g. python -c "import torch; print(torch.cuda.get_arch_list())"
-# The listed 'sm_xy' values show the x.y gpu capability supported
-gpus_minimum_capability = 5.0
-
 # We must request 1 CPU in addition to 1 GPU
 request_cpus = 1
 request_gpus = 1
@@ -44,6 +38,15 @@ request_gpus = 1
 # select some memory and disk space
 request_memory = 2GB
 request_disk = 2GB
+
+# Optional: specify the GPU hardware architecture required
+# Check against the CUDA GPU Compute Capability for your software
+# e.g. python -c "import torch; print(torch.cuda.get_arch_list())"
+# The listed 'sm_xy' values show the x.y gpu capability supported
+gpus_minimum_capability = 5.0
+
+# Optional: required GPU memory
+gpus_minimum_memory = 6GB
 
 # Opt in to using CHTC GPU Lab resources
 +WantGPULab = true
