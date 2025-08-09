@@ -7,10 +7,10 @@ Train MNIST using PyTorch in a container.
 To ensure that the
 
 ```Dockerfile
-RUN pixi install --locked --environment prod
+RUN pixi install --locked --environment gpu
 ```
 
-command will succeed the `pixi.lock` needs to know about the existence of the `prod` environment and be current with it, so run
+command will succeed the `pixi.lock` needs to know about the existence of the `gpu` environment and be current with it, so run
 
 ```
 pixi lock
