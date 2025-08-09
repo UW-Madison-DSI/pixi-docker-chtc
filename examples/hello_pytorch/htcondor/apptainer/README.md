@@ -113,7 +113,7 @@ while the Apptainer jobs use
 
 ```
 request_memory = 2GB
-request_disk = 6GB
+request_disk = 7GB
 ```
 
 * Interactive Apptainer container jobs (jobs submitted with `condor_submit -interactive <submit description file>.sub`) sometimes run into trouble with the interactive shell and fail where Docker container jobs do not.
