@@ -47,16 +47,16 @@ torchvision = ">=0.22.0,<0.23"
 pixi-pack = ">=0.7.2,<0.8"
 
 [feature.pack.tasks.pack]
-description = "Pack the production environment into a pixi-pack archive"
+description = "Pack the gpu environment into a pixi-pack archive"
 cmd = """
-pixi pack --environment prod --platform linux-64 pixi.toml
+pixi pack --environment gpu --platform linux-64 pixi.toml
 """
 outputs = ["environment.tar"]
 
 [feature.pack.tasks.pack-executable]
-description = "Pack the production environment into self-extracting executable"
+description = "Pack the gpu environment into self-extracting executable"
 cmd = """
-pixi pack --environment prod --platform linux-64 --create-executable pixi.toml
+pixi pack --environment gpu --platform linux-64 --create-executable pixi.toml
 """
 outputs = ["environment.sh"]
 
@@ -75,5 +75,5 @@ cp environment.sh environment-"$(openssl sha256 -r environment.sh | cut -b -8)".
 """
 
 [environments]
-prod = { features = [], solve-group = "prod" }
+gpu = { features = [], solve-group = "gpu" }
 pack = { features = ["pack"], no-default-feature = true }
