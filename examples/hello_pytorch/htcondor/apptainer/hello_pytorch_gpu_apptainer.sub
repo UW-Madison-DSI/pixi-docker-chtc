@@ -34,7 +34,7 @@ requirements = (OpSysMajorVer > 7)
 # Check against the CUDA GPU Compute Capability for your software
 # e.g. python -c "import torch; print(torch.cuda.get_arch_list())"
 # The listed 'sm_xy' values show the x.y gpu capability supported
-gpus_minimum_capability = 6.0
+gpus_minimum_capability = 5.0
 
 # We must request 1 CPU in addition to 1 GPU
 request_cpus = 1
