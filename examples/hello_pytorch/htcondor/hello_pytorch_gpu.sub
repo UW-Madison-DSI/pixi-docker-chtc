@@ -46,7 +46,7 @@ request_disk = 2GB
 gpus_minimum_capability = 5.0
 
 # Optional: required GPU memory
-gpus_minimum_memory = 4GB
+# gpus_minimum_memory = 4GB
 
 # Opt in to using CHTC GPU Lab resources
 +WantGPULab = true
