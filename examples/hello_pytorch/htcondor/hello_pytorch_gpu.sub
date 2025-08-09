@@ -8,9 +8,9 @@ docker_pull_policy = missing
 container_image = docker://ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9
 
 # set the log, error and output files
-log = hello_pytorch_gpu.log.txt
-error = hello_pytorch_gpu.err.txt
-output = hello_pytorch_gpu.out.txt
+log = hello_pytorch_gpu_$(Cluster)_$(Process).log.txt
+error = hello_pytorch_gpu_$(Cluster)_$(Process).err.txt
+output = hello_pytorch_gpu_$(Cluster)_$(Process).out.txt
 
 # set the executable to run
 executable = hello_pytorch_gpu.sh
