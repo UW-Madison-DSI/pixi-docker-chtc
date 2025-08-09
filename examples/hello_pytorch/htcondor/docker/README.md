@@ -43,14 +43,14 @@ After logging onto CHTC and cloning this repository, navigate to this directory 
 bash submit.sh
 ```
 
-This will submit the job and create the file `hello_pytorch_gpu.log.txt` which will have the job's log file written into it.
+This will submit the job and create the file `hello_pytorch_gpu_docker_$(Cluster)_$(Process).log.txt` which will have the job's log file written into it.
 After the job finishes, it additionally return the job's `stdout` and `stderr` files:
 
-* `docker_stderror`
-* `hello_pytorch_gpu.err.txt`
-* `hello_pytorch_gpu.out.txt`
 
-### Example of job output in the resulting `hello_pytorch_gpu.out.txt`
+* `hello_pytorch_gpu_docker_$(Cluster)_$(Process).out.txt`
+* `hello_pytorch_gpu_docker_$(Cluster)_$(Process).err.txt`
+
+### Example of job output in the resulting `hello_pytorch_gpu_docker_$(Cluster)_$(Process).out.txt`
 
 ```
 # Hello CHTC from Job 0 running on gpu2000.chtc.wisc.edu
