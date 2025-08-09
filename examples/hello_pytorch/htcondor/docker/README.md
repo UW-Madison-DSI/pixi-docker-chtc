@@ -2,10 +2,10 @@
 
 This example contains the files:
 
-* `hello_pytorch_gpu.sub`: The HTCondor job submission file
-* `hello_pytorch_gpu.sh`: The execute shells script that contains the commands that are run as the job
-* `submit.sh`: The shell script that submits `hello_pytorch_gpu.sub` to HTCondor as a standard batch job with `condor_submit`
-* `interact.sh`: The shell script that submits `hello_pytorch_gpu.sub` to HTCondor as an interactive job with `condor_submit -interactive`
+* `hello_pytorch_gpu_docker.sub`: The HTCondor job submission file
+* `hello_pytorch_gpu_docker.sh`: The execute shells script that contains the commands that are run as the job
+* `submit.sh`: The shell script that submits `hello_pytorch_gpu_docker.sub` to HTCondor as a standard batch job with `condor_submit`
+* `interact.sh`: The shell script that submits `hello_pytorch_gpu_docker.sub` to HTCondor as an interactive job with `condor_submit -interactive`
 
 ## Local testing
 

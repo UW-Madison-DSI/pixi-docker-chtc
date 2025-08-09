@@ -13,7 +13,7 @@ error = hello_pytorch_gpu_docker_$(Cluster)_$(Process).err.txt
 output = hello_pytorch_gpu_docker_$(Cluster)_$(Process).out.txt
 
 # set the executable to run
-executable = hello_pytorch_gpu.sh
+executable = hello_pytorch_gpu_docker.sh
 arguments = $(Process)
 
 # transfer training data files and runtime source files to the compute node
