@@ -20,7 +20,7 @@ python ./src/torch_detect_GPU.py
 [tasks.train-mnist]
 description = "Train a simple PyTorch neural net classifier on the MNIST dataset"
 cmd = """
-python ./src/torch_MNIST.py
+python ./src/torch_MNIST.py --save-model
 """
 
 [tasks.download-mnist]
@@ -29,7 +29,7 @@ cmd = """
 python -c "\
 from torchvision import datasets, transforms; \
 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]); \
-dataset1 = datasets.MNIST('../data', train=True, download=True, transform=transform)"
+dataset1 = datasets.MNIST('data', train=True, download=True, transform=transform)"
 """
 
 # Required for picking up the correct versions of pytorch
