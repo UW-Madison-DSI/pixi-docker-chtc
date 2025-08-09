@@ -36,7 +36,8 @@ request_gpus = 1
 
 # select some memory and disk space
 request_memory = 2GB
-request_disk = 6GB
+# Apptainer jobs take more disk than Docker jobs for some reason
+request_disk = 7GB
 
 # Optional: specify the GPU hardware architecture required
 # Check against the CUDA GPU Compute Capability for your software
