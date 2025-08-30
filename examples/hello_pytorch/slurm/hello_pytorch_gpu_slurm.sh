@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH --job-name="a.out_symmetric"
-#SBATCH --output="a.out.%j.%N.out"
+#SBATCH --job-name="hello_pytorch"
+#SBATCH --output="hello_pytorch.out.%j.%N.out"
 #SBATCH --partition=gpuA40x4
 #SBATCH --mem=10G
 #SBATCH --nodes=1
