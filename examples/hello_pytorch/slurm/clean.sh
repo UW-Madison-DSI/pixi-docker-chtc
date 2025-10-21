@@ -3,4 +3,4 @@
 rm -f slurm-*.out
 rm -f slurm-*.err
 
-rm -f mnist_cnn.pt
+rm -f mnist_cnn.pt mnist_cnn_*.pt.bak
