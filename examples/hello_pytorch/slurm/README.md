@@ -14,12 +14,12 @@ After logging onto the SLURM cluster and cloning this repository, navigate to th
 bash submit.sh
 ```
 
-This will submit the job and create the file `slurm-XXXXXXXXXXXXXXXX-$(Process).log.txt` which will have the job's log file written into it.
-After the job finishes, it additionally return the job's `stdout` and `stderr` files:
+This will submit the job.
+After the job finishes, it will return the job's `stdout` and `stderr` files which contain the job allocation number, or `JOBID`:
 
 
-* `slurm-$(Process).out`
-* `slurm-$(Process).err`
+* `slurm-$(JOBID).out`
+* `slurm-$(JOBID).err`
 
 ## Checking status
 
