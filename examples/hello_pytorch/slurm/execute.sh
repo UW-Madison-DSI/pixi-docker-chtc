@@ -14,15 +14,6 @@ nvidia-smi --query-gpu=name,compute_cap
 echo -e "\n# Check if PyTorch can detect the GPU:\n"
 pixi run --environment gpu python ../src/torch_detect_GPU.py
 
-# echo -e "\n# Extract the training data:\n"
-# if [ -f "MNIST_data.tar.gz" ]; then
-#     tar -vxzf MNIST_data.tar.gz
-# else
-#     echo "The training data archive, MNIST_data.tar.gz, is not found."
-#     echo "Please transfer it to the worker node in the HTCondor jobs submission file."
-#     exit 1
-# fi
-
 echo -e "\n# Check that the training code exists:\n"
 ls -1ap ../src/
 
