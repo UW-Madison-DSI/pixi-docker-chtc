@@ -8,7 +8,7 @@
 #SBATCH --constraint="scratch"
 #SBATCH --gpus-per-node=1
 #SBATCH --gpu-bind=closest  # select a cpu close to gpu on pci bus topology
-#SBATCH --account=bexo-delta-gpu  # match to an "Account" returned by the 'accounts' command
+#SBATCH --account=<ACCOUNT NAME>  # match to an "Account" returned by the 'accounts' command
 #SBATCH --exclusive  # dedicated node for this job
 #SBATCH --no-requeue
 #SBATCH --time=01:00:00
