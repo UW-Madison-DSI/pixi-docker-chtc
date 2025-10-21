@@ -18,8 +18,8 @@ This will submit the job.
 After the job finishes, it will return the job's `stdout` and `stderr` files which contain the job allocation number, or `JOBID`:
 
 
-* `slurm-$(JOBID).out`
-* `slurm-$(JOBID).err`
+* `hello_pytorch.slurm-$(JOBID).out`
+* `hello_pytorch.slurm-$(JOBID).err`
 
 ## Checking status
 

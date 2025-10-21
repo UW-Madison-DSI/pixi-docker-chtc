@@ -1,20 +1,19 @@
 #!/usr/bin/env bash
 #SBATCH --job-name="hello_pytorch"
-#SBATCH --output="hello_pytorch.out.%j.%N.out"
 #SBATCH --partition=gpuA40x4
-#SBATCH --mem=10G
+#SBATCH --mem=5G
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=2
+#SBATCH --cpus-per-task=1
 #SBATCH --constraint="scratch"
 #SBATCH --gpus-per-node=1
 #SBATCH --gpu-bind=closest  # select a cpu close to gpu on pci bus topology
 #SBATCH --account=bexo-delta-gpu  # match to a "Project" returned by the "accounts" command
 #SBATCH --exclusive  # dedicated node for this job
 #SBATCH --no-requeue
-#SBATCH -t 04:00:00
-#SBATCH -e slurm-%j.err
-#SBATCH -o slurm-%j.out
+#SBATCH --time=01:00:00
+#SBATCH --error hello_pytorch.slurm-%j.err
+#SBATCH --output hello_pytorch.slurm-%j.out
 
 module reset
 
