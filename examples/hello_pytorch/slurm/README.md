@@ -6,6 +6,14 @@ This example contains the files:
 * `execute.sh`: The execute shells script that contains the commands that are run as the job
 * `submit.sh`: The shell script that submits `hello_pytorch_gpu_slurm.sh` to SLURM as a standard batch job with `sbatch`
 
+## Configuration
+
+Note that in the `hello_pytorch_gpu_slurm.sh` there will be cluster specific information that needs to be adjusted such as:
+
+* `partition`
+* `account`
+* `constraint`
+
 ## Running
 
 After logging onto the SLURM cluster and cloning this repository, navigate to this directory and run
