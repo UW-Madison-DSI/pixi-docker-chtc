@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # # Download the training data locally to transfer to the worker node
 # if [ ! -f "MNIST_data.tar.gz" ]; then

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #SBATCH --job-name="hello_pytorch"
 #SBATCH --output="hello_pytorch.out.%j.%N.out"
 #SBATCH --partition=gpuA40x4
