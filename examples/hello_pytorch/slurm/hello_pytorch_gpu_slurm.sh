@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #SBATCH --job-name="hello_pytorch"
 #SBATCH --partition=gpuA40x4
-#SBATCH --mem=5G
+#SBATCH --mem=2G
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
