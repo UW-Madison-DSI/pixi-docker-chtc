@@ -1,5 +1,9 @@
 # Running the Hello PyTorch example on GPUs on SLURM clusters
 
+> [!NOTE]
+> [CHTC's HPC cluster](https://chtc.cs.wisc.edu/uw-research-computing/hpc-overview) does not have GPUs associated with it.
+> This is a generic example for SLURM clusters with GPU resources and not applicable to CHTC.
+
 This example contains the files:
 
 * `hello_pytorch_gpu_slurm.sh`: The SLURM job submission file
