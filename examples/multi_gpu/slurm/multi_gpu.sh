@@ -2,9 +2,9 @@
 
 #SBATCH --job-name="multi_gpu"
 #SBATCH --partition=gpuA40x4
-#SBATCH --mem=2G
+#SBATCH --mem=4G
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=2
+#SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=4
 #SBATCH --constraint="scratch"
 #SBATCH --gpus-per-node=2
