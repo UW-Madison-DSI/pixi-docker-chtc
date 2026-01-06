@@ -8,6 +8,7 @@ import os
 import sys
 import subprocess
 import time
+from pathlib import Path
 
 
 def main():
@@ -33,12 +34,15 @@ def main():
 
     processes = []
 
+    # Training script is colocated with wrapper script
+    source_file_directory = Path(__file__).resolve().parent
+
     # Launch a process for each GPU
     for rank in range(world_size):
         # Each process gets its rank and world_size as arguments
         cmd = [
             sys.executable,  # Use the same Python interpreter
-            "torch_mnist_multi_gpu_htcondor.py",
+            str(source_file_directory / "torch_mnist_multi_gpu_htcondor.py"),
             str(rank),
             str(world_size),
         ]
