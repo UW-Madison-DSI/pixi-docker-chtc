@@ -13,7 +13,7 @@ arguments = $(Process)
 +JobDurationCategory = "Medium"
 
 # transfer training data files and runtime source files to the compute node
-transfer_input_files = ../src/
+transfer_input_files = ../src
 
 # transfer the serialized trained model back
 transfer_output_files = mnist_cnn.pt
