@@ -21,6 +21,11 @@ echo -e "# Activate Pixi environment\n"
 echo -e "# Check to see if the NVIDIA drivers can correctly detect the GPU:\n"
 nvidia-smi
 
+# DEBUG
+echo -e "\n# Check directory contents:\n"
+pwd
+ls -1ap
+
 echo -e "\n# Check that the training code exists:\n"
 ls -1ap ./src/
 
