@@ -22,6 +22,6 @@ echo "job is starting on $(hostname)"
 
 # Set environment variables for distributed training
 export MASTER_ADDR=$(scontrol show hostname ${SLURM_NODELIST} | head -n 1)
-export MASTER_PORT=12355
+export MASTER_PORT=$((12000 + $SLURM_JOB_ID % 1000))
 
 srun execute.sh
