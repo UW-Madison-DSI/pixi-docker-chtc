@@ -132,11 +132,23 @@ def main(rank, world_size):
         [transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]
     )
 
-    # Load datasets
+    # IMPORTANT: Only rank 0 downloads the dataset to avoid race conditions
+    if rank == 0:
+        print("Rank 0: Downloading MNIST dataset...")
+        datasets.MNIST("./data", train=True, download=True, transform=transform)
+        datasets.MNIST("./data", train=False, download=True, transform=transform)
+        print("Rank 0: Dataset download complete")
+
+    # Synchronize all processes - wait for rank 0 to finish downloading
+    dist.barrier()
+
+    # Now all ranks can safely load the dataset
     train_dataset = datasets.MNIST(
-        "./data", train=True, download=True, transform=transform
+        "./data", train=True, download=False, transform=transform
     )
-    test_dataset = datasets.MNIST("./data", train=False, transform=transform)
+    test_dataset = datasets.MNIST(
+        "./data", train=False, download=False, transform=transform
+    )
 
     # Create distributed sampler
     train_sampler = DistributedSampler(
@@ -167,7 +179,15 @@ def main(rank, world_size):
     model = CNN().to(device)
 
     # Wrap model with DDP
-    model = DDP(model, device_ids=[rank])
+    # IMPORTANT: Use device 0 since HTCondor may set CUDA_VISIBLE_DEVICES per process
+    # Check if we should use rank or 0 for device_ids
+    visible_devices = os.environ.get("CUDA_VISIBLE_DEVICES", "")
+    if "," in visible_devices:
+        # Multiple GPUs visible, use rank
+        model = DDP(model, device_ids=[rank])
+    else:
+        # Single GPU visible per process (HTCondor style), use device 0
+        model = DDP(model, device_ids=[0])
 
     # Optimizer
     optimizer = optim.Adadelta(model.parameters(), lr=lr)

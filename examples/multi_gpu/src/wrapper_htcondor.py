@@ -22,9 +22,17 @@ def main():
         world_size = len(gpu_list)
         print(f"HTCondor assigned GPUs: {assigned_gpus}")
     else:
-        # Fallback: assume 2 GPUs if not specified
-        world_size = 2
-        print(f"Warning: _CONDOR_AssignedGPUs not set, assuming {world_size} GPUs")
+        # Fallback: check CUDA_VISIBLE_DEVICES
+        cuda_visible = os.environ.get("CUDA_VISIBLE_DEVICES", "")
+        if cuda_visible:
+            gpu_list = [g.strip() for g in cuda_visible.split(",") if g.strip()]
+            world_size = len(gpu_list) if gpu_list else 2
+            print(f"CUDA_VISIBLE_DEVICES: {cuda_visible}")
+        else:
+            world_size = 2
+            print(
+                f"Warning: No GPU environment variables set, assuming {world_size} GPUs"
+            )
 
     # Set master address and port for process group
     master_port = 12355
@@ -32,11 +40,26 @@ def main():
     print(f"Launching {world_size} training processes...")
     print(f"Master port: {master_port}")
 
-    processes = []
+    # Pre-download MNIST dataset before launching processes
+    print("\nPre-downloading MNIST dataset to avoid race conditions...")
+    try:
+        import torch
+        from torchvision import datasets, transforms
+
+        transform = transforms.Compose(
+            [transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]
+        )
+        datasets.MNIST("./data", train=True, download=True, transform=transform)
+        datasets.MNIST("./data", train=False, download=True, transform=transform)
+        print("Dataset download complete!\n")
+    except Exception as e:
+        print(f"Warning: Could not pre-download dataset: {e}")
+        print("Processes will attempt to download individually.\n")
 
     # Training script is colocated with wrapper script
     source_file_directory = Path(__file__).resolve().parent
 
+    processes = []
     # Launch a process for each GPU
     for rank in range(world_size):
         # Each process gets its rank and world_size as arguments
@@ -50,20 +73,45 @@ def main():
         print(f"Starting process {rank}/{world_size}...")
 
         # Launch subprocess
-        proc = subprocess.Popen(cmd)
+        proc = subprocess.Popen(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            universal_newlines=True,
+            bufsize=1,
+        )
         processes.append(proc)
 
         # Small delay between launching processes
-        time.sleep(1)
+        time.sleep(2)
 
-    print(f"\nAll {world_size} processes launched. Waiting for completion...")
+    print(f"\nAll {world_size} processes launched. Monitoring output...")
 
-    # Wait for all processes to complete
-    exit_codes = []
-    for i, proc in enumerate(processes):
-        exit_code = proc.wait()
-        exit_codes.append(exit_code)
-        print(f"Process {i} finished with exit code {exit_code}")
+    # Monitor process output
+    import select
+
+    while processes:
+        for proc in processes[:]:
+            line = proc.stdout.readline()
+            if line:
+                rank_id = processes.index(proc)
+                print(f"[rank{rank_id}]: {line.rstrip()}")
+
+            # Check if process finished
+            if proc.poll() is not None:
+                # Read any remaining output
+                for line in proc.stdout:
+                    rank_id = processes.index(proc)
+                    print(f"[rank{rank_id}]: {line.rstrip()}")
+                processes.remove(proc)
+
+        time.sleep(0.1)
+
+    # Wait for all processes to complete and collect exit codes
+    exit_codes = [proc.wait() for proc in processes]
+
+    for i, code in enumerate(exit_codes):
+        print(f"Process {i} finished with exit code {code}")
 
     # Check if all processes succeeded
     if all(code == 0 for code in exit_codes):
