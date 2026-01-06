@@ -1,5 +1,6 @@
 universe = container
-container_image = oras://ghcr.io/uw-madison-dsi/pixi-docker-chtc:apptainer-hello-pytorch-noble-cuda-12.9
+# container_image = oras://ghcr.io/uw-madison-dsi/pixi-docker-chtc:apptainer-hello-pytorch-noble-cuda-12.9
+container_image = docker://ghcr.io/uw-madison-dsi/pixi-docker-chtc:hello-pytorch-noble-cuda-12.9
 
 # set the log, error and output files
 log = multi_gpu_apptainer_$(Cluster)_$(Process).log.txt
