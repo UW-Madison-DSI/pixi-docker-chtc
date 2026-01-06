@@ -39,6 +39,7 @@ def setup_distributed():
     """Initialize distributed training environment"""
     # Slurm environment variables
     rank = int(os.environ.get("SLURM_PROCID", 0))
+    print(f"#DEBUG Rank: {rank}")
     world_size = int(os.environ.get("SLURM_NTASKS", 1))
     local_rank = int(os.environ.get("SLURM_LOCALID", 0))
 
@@ -130,7 +131,7 @@ def main():
     # Hyperparameters
     batch_size = 64
     test_batch_size = 1000
-    epochs = 10
+    epochs = 18
     lr = 0.01
 
     # Data transformations
@@ -194,8 +195,9 @@ def main():
 
     # Save model (only rank 0)
     if rank == 0:
-        torch.save(model.module.state_dict(), "mnist_cnn_ddp.pt")
-        print("Model saved to mnist_cnn_ddp.pt")
+        file_name = "mnist_cnn.pt"
+        torch.save(model.module.state_dict(), file_name)
+        print(f"Model saved to {file_name}")
 
     # Cleanup
     cleanup_distributed()
