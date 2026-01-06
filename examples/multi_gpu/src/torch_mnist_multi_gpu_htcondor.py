@@ -124,8 +124,8 @@ def main(rank, world_size):
     # Hyperparameters
     batch_size = 64
     test_batch_size = 1000
-    epochs = 18
-    lr = 0.01
+    epochs = 20
+    lr = 1.0
 
     # Data transformations
     transform = transforms.Compose(
