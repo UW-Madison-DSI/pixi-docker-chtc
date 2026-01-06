@@ -7,8 +7,8 @@ error = multi_gpu_apptainer_$(Cluster)_$(Process).err.txt
 output = multi_gpu_apptainer_$(Cluster)_$(Process).out.txt
 
 # set the executable to run
-executable = wrapper_htcondor.py
-# arguments = $(Process)
+executable = wrapper.sh
+arguments = $(Process)
 
 +JobDurationCategory = "Medium"
 
