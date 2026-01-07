@@ -1,0 +1,31 @@
+# HTCondor Submit File for MPI Multi-Node Job
+
+# Universe must be parallel for multi-node MPI jobs
+universe = parallel
+
+# The executable is the wrapper script that launches MPI
+executable = wrapper.sh
+
+# Number of nodes to request
+machine_count = 4
+
+# Standard output/error/log files
+output = mpi_ring.$(NODE).out
+error = mpi_ring.$(NODE).err
+log = mpi_ring.log
+
+# Transfer the Python script and wrapper to compute nodes
+transfer_input_files = pixi.toml, pixi.lock, mpi_ring.py
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+
+# Request resources per node
+request_cpus = 1
+request_memory = 5GB
+request_disk = 5GB
+
+# Important: This tells HTCondor to set up MPI environment
++ParallelShutdownPolicy = "WAIT_FOR_ALL"
+
+# Submit the job
+queue
