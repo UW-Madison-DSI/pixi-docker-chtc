@@ -54,12 +54,10 @@ def setup_distributed():
         backend="nccl", init_method="env://", world_size=world_size, rank=rank
     )
 
-    # IMPORTANT: With Slurm's gpu-bind, each task sees only its assigned GPU as device 0
-    # So we always use device 0, not local_rank
-    device_id = 0
-    torch.cuda.set_device(device_id)
+    # Set device
+    torch.cuda.set_device(local_rank)
 
-    return rank, world_size, device_id
+    return rank, world_size, local_rank
 
 
 def cleanup_distributed():
@@ -127,8 +125,8 @@ def test(model, device, test_loader, rank):
 
 def main():
     # Setup distributed training
-    rank, world_size, device_id = setup_distributed()
-    device = torch.device(f"cuda:{device_id}")
+    rank, world_size, local_rank = setup_distributed()
+    device = torch.device(f"cuda:{local_rank}")
 
     # Hyperparameters
     batch_size = 64
@@ -176,8 +174,7 @@ def main():
     model = CNN().to(device)
 
     # Wrap model with DDP
-    # With gpu-bind, each process sees only device 0
-    model = DDP(model, device_ids=[device_id])
+    model = DDP(model, device_ids=[local_rank])
 
     # Optimizer
     optimizer = optim.Adadelta(model.parameters(), lr=lr)
