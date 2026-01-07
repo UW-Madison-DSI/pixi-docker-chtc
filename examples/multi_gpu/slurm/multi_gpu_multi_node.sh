@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# Multi-node PyTorch distributed training with NCCL
+#
+# Network requirements:
+# - All nodes must be on the same network and able to communicate
+# - Master node hostname must be resolvable by all nodes
+# - Firewall must allow TCP communication on MASTER_PORT between nodes
+# - For NCCL: InfiniBand or high-speed interconnect recommended for performance
+
 #SBATCH --job-name="multi_gpu"
 #SBATCH --partition=gpuA40x4
 #SBATCH --mem=4G  # memory per node

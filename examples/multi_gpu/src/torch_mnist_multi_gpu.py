@@ -43,11 +43,17 @@ def setup_distributed():
     world_size = int(os.environ.get("SLURM_NTASKS", 1))
     local_rank = int(os.environ.get("SLURM_LOCALID", 0))
 
-    # Set MASTER_ADDR and MASTER_PORT if not already set
+    # Verify required environment variables for multi-node training
     if "MASTER_ADDR" not in os.environ:
-        os.environ["MASTER_ADDR"] = "localhost"
+        raise RuntimeError(
+            "MASTER_ADDR must be set for distributed training. "
+            "This should be set by the SLURM script."
+        )
     if "MASTER_PORT" not in os.environ:
-        os.environ["MASTER_PORT"] = "12355"
+        raise RuntimeError(
+            "MASTER_PORT must be set for distributed training. "
+            "This should be set by the SLURM script."
+        )
 
     # Initialize process group
     dist.init_process_group(
@@ -128,11 +134,25 @@ def main():
     rank, world_size, local_rank = setup_distributed()
     device = torch.device(f"cuda:{local_rank}")
 
+    # Print distributed configuration (rank 0 only)
+    if rank == 0:
+        print("\n" + "=" * 60)
+        print("Distributed Training Configuration")
+        print("=" * 60)
+        print(f"World size: {world_size}")
+        print(f"Number of nodes: {os.environ.get('SLURM_NNODES', 'N/A')}")
+        print(f"Tasks per node: {os.environ.get('SLURM_NTASKS_PER_NODE', 'N/A')}")
+        print(f"Master address: {os.environ['MASTER_ADDR']}")
+        print(f"Master port: {os.environ['MASTER_PORT']}")
+        print(f"Backend: nccl")
+        print(f"CUDA device: {device}")
+        print("=" * 60 + "\n")
+
     # Hyperparameters
     batch_size = 64
     test_batch_size = 1000
-    epochs = 18
-    lr = 0.01
+    epochs = 20
+    lr = 1.0
 
     # Data transformations
     transform = transforms.Compose(

@@ -15,7 +15,7 @@ nvidia-smi --query-gpu=name,compute_cap
 echo "Job ID: ${SLURM_JOB_ID}"
 echo "Running on nodes: ${SLURM_NODELIST}"
 echo "Number of tasks: ${SLURM_NTASKS}"
-echo "GPUs per node: 2"
+echo "GPUs per node: ${SLURM_GPUS_PER_NODE:-1}"
 echo "Master address: ${MASTER_ADDR}"
 echo "Master port: ${MASTER_PORT}"
 echo ""
