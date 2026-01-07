@@ -2,19 +2,19 @@
 
 #SBATCH --job-name="multi_gpu"
 #SBATCH --partition=gpuA40x4
-#SBATCH --mem=4G
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=2
-#SBATCH --cpus-per-task=4
+#SBATCH --mem=4G  # memory per node
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
 #SBATCH --constraint="scratch"
-#SBATCH --gpus-per-node=2
+#SBATCH --gpus-per-node=1
 #SBATCH --gpu-bind=none  # NCCL does not work with --gpu-bind (e.g. --gpu-bind=closest maps all devices to device ID 0)
 #SBATCH --account=<ACCOUNT NAME>  # match to an "Account" returned by the 'accounts' command
 #SBATCH --exclusive  # dedicated node for this job
 #SBATCH --no-requeue
 #SBATCH --time=01:00:00
-#SBATCH --error multi_gpu.slurm-%j.err
-#SBATCH --output multi_gpu.slurm-%j.out
+#SBATCH --error multi_gpu_multi_node.slurm-%j.err
+#SBATCH --output multi_gpu_multi_node.slurm-%j.out
 
 module reset
 
