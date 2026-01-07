@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --constraint="scratch"
 #SBATCH --gpus-per-node=2
-#SBATCH --gpu-bind=closest  # select a cpu close to gpu on pci bus topology
+#SBATCH --gpu-bind=none  # NCCL does not work with --gpu-bind (e.g. --gpu-bind=closest maps all devices to device ID 0)
 #SBATCH --account=<ACCOUNT NAME>  # match to an "Account" returned by the 'accounts' command
 #SBATCH --exclusive  # dedicated node for this job
 #SBATCH --no-requeue
