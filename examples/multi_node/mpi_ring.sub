@@ -28,4 +28,4 @@ request_disk = 5GB
 +ParallelShutdownPolicy = "WAIT_FOR_ALL"
 
 # Submit the job
-queue
+queue 1
