@@ -6,6 +6,7 @@ Each process sends a message to the next process in a ring topology.
 
 from mpi4py import MPI
 
+
 def main():
     comm = MPI.COMM_WORLD
     rank = comm.Get_rank()
@@ -21,16 +22,21 @@ def main():
     print(f"Rank {rank}/{size}: Sending '{send_data}' to rank {next_rank}", flush=True)
 
     # Send to next, receive from previous
-    recv_data = comm.sendrecv(sendobj=send_data, dest=next_rank,
-                              source=prev_rank)
+    recv_data = comm.sendrecv(sendobj=send_data, dest=next_rank, source=prev_rank)
 
-    print(f"Rank {rank}/{size}: Received '{recv_data}' from rank {prev_rank}", flush=True)
+    print(
+        f"Rank {rank}/{size}: Received '{recv_data}' from rank {prev_rank}", flush=True
+    )
 
     # Barrier to ensure all processes complete
     comm.Barrier()
 
     if rank == 0:
-        print(f"\nRing communication completed successfully across {size} nodes!", flush=True)
+        print(
+            f"\nRing communication completed successfully across {size} nodes!",
+            flush=True,
+        )
+
 
 if __name__ == "__main__":
     main()
