@@ -39,7 +39,6 @@ def setup_distributed():
     """Initialize distributed training environment"""
     # Slurm environment variables
     rank = int(os.environ.get("SLURM_PROCID", 0))
-    print(f"#DEBUG Rank: {rank}")
     world_size = int(os.environ.get("SLURM_NTASKS", 1))
     local_rank = int(os.environ.get("SLURM_LOCALID", 0))
 
