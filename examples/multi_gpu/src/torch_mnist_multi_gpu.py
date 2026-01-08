@@ -175,7 +175,7 @@ def main():
         train_dataset,
         batch_size=batch_size,
         sampler=train_sampler,
-        num_workers=2,
+        num_workers=1,
         pin_memory=True,
     )
 
@@ -186,7 +186,7 @@ def main():
             test_dataset,
             batch_size=test_batch_size,
             shuffle=False,
-            num_workers=2,
+            num_workers=1,
             pin_memory=True,
         )
 
