@@ -170,11 +170,17 @@ def main():
     )
 
     # Data loaders
+    # N.B.: num_workers should match #SBATCH --cpus-per-task
+    # Get num_workers from SLURM environment variable
+    num_workers = int(os.environ.get("SLURM_CPUS_PER_TASK", 1))
+    if rank == 0:
+        print(f"DataLoader num_workers: {num_workers}")
+
     train_loader = DataLoader(
         train_dataset,
         batch_size=batch_size,
         sampler=train_sampler,
-        num_workers=1,
+        num_workers=num_workers,
         pin_memory=True,
     )
 
@@ -185,7 +191,7 @@ def main():
             test_dataset,
             batch_size=test_batch_size,
             shuffle=False,
-            num_workers=1,
+            num_workers=num_workers,
             pin_memory=True,
         )
 

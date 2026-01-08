@@ -13,7 +13,7 @@
 #SBATCH --mem=4G  # memory per node
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=1
+#SBATCH --cpus-per-task=2  # Used to set num_workers in DataLoader
 #SBATCH --constraint="scratch"
 #SBATCH --gpus-per-node=1
 #SBATCH --gpu-bind=none  # NCCL does not work with --gpu-bind (e.g. --gpu-bind=closest maps all devices to device ID 0)
