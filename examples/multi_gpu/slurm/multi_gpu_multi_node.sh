@@ -8,7 +8,7 @@
 # - Firewall must allow TCP communication on MASTER_PORT between nodes
 # - For NCCL: InfiniBand or high-speed interconnect recommended for performance
 
-#SBATCH --job-name="multi_gpu"
+#SBATCH --job-name="multi_gpu_multi_node"
 #SBATCH --partition=gpuA40x4
 #SBATCH --mem=4G  # memory per node
 #SBATCH --nodes=2

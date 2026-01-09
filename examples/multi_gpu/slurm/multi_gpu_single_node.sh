@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#SBATCH --job-name="multi_gpu"
+#SBATCH --job-name="multi_gpu_single_node"
 #SBATCH --partition=gpuA40x4
 #SBATCH --mem=4G  # memory per node
 #SBATCH --nodes=1
