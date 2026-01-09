@@ -36,22 +36,27 @@ class CNN(nn.Module):
 
 
 def setup_distributed():
-    """Initialize distributed training environment"""
-    # Slurm environment variables
-    rank = int(os.environ.get("SLURM_PROCID", 0))
-    world_size = int(os.environ.get("SLURM_NTASKS", 1))
-    local_rank = int(os.environ.get("SLURM_LOCALID", 0))
+    """Initialize distributed training environment
+
+    Supports both torchrun (recommended) and direct SLURM execution.
+    torchrun sets: RANK, LOCAL_RANK, WORLD_SIZE
+    SLURM sets: SLURM_PROCID, SLURM_LOCALID, SLURM_NTASKS
+    """
+    # Try torchrun environment variables first (standard approach)
+    rank = int(os.environ.get("RANK", os.environ.get("SLURM_PROCID", 0)))
+    world_size = int(os.environ.get("WORLD_SIZE", os.environ.get("SLURM_NTASKS", 1)))
+    local_rank = int(os.environ.get("LOCAL_RANK", os.environ.get("SLURM_LOCALID", 0)))
 
     # Verify required environment variables for multi-node training
     if "MASTER_ADDR" not in os.environ:
         raise RuntimeError(
             "MASTER_ADDR must be set for distributed training. "
-            "This should be set by the SLURM script."
+            "This should be set by the SLURM script or torchrun."
         )
     if "MASTER_PORT" not in os.environ:
         raise RuntimeError(
             "MASTER_PORT must be set for distributed training. "
-            "This should be set by the SLURM script."
+            "This should be set by the SLURM script or torchrun."
         )
 
     # Initialize process group

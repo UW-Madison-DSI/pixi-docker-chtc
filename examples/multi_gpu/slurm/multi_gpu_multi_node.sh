@@ -1,12 +1,21 @@
 #!/usr/bin/env bash
 
-# Multi-node PyTorch distributed training with NCCL
+# Multi-node PyTorch distributed training with NCCL and torchrun
+#
+# This script uses torchrun (PyTorch's distributed launcher) for better
+# portability and standardization compared to direct Python execution.
 #
 # Network requirements:
 # - All nodes must be on the same network and able to communicate
 # - Master node hostname must be resolvable by all nodes
 # - Firewall must allow TCP communication on MASTER_PORT between nodes
 # - For NCCL: InfiniBand or high-speed interconnect recommended for performance
+#
+# torchrun advantages:
+# - Standardized PyTorch distributed training (scheduler-agnostic)
+# - Better error handling and logging
+# - Portable: works locally and on different HPC systems
+# - Elastic training support (fault tolerance)
 
 #SBATCH --job-name="multi_gpu_multi_node"
 #SBATCH --partition=gpuA40x4

@@ -23,6 +23,23 @@ echo ""
 echo -e "\n# Check that the training code exists:\n"
 ls -1ap ../src/
 
-echo -e "\n# Train MNIST with PyTorch:\n"
-time pixi run --environment gpu python ../src/torch_mnist_multi_gpu.py
-# time pixi run --environment gpu python ../src/torch_MNIST.py --epochs 14 --data-dir ./data --save-model
+echo -e "\n# Train MNIST with PyTorch using torchrun:\n"
+echo "Using torchrun for distributed training"
+echo "  - nproc-per-node: 1 (matching --gpus-per-node)"
+echo "  - nnodes: ${SLURM_NNODES} (from SLURM)"
+echo "  - node-rank: ${SLURM_NODEID} (from SLURM)"
+echo ""
+
+# torchrun with SLURM integration
+# - nproc-per-node: number of processes per node (should match GPUs per node)
+# - nnodes: total number of nodes (from SLURM_NNODES)
+# - node-rank: rank of this node (from SLURM_NODEID)
+# - rdzv-backend: rendezvous backend (c10d is standard for static clusters)
+# - rdzv-endpoint: master node address and port (already set as env vars)
+time pixi run --environment gpu torchrun \
+    --nproc-per-node=1 \
+    --nnodes="${SLURM_NNODES}" \
+    --node-rank="${SLURM_NODEID}" \
+    --rdzv-backend=c10d \
+    --rdzv-endpoint="${MASTER_ADDR}:${MASTER_PORT}" \
+    ../src/torch_mnist_multi_gpu.py
