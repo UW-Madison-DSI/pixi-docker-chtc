@@ -11,11 +11,16 @@ nvidia-smi
 
 nvidia-smi --query-gpu=name,compute_cap
 
+if [ -z "${SLURM_GPUS_PER_NODE}" ] || [ "${SLURM_GPUS_PER_NODE}" -le 0 ]; then
+    echo "Error: SLURM_GPUS_PER_NODE is not set or is an invalid number."
+    exit 1
+fi
+
 # Print job information
 echo "Job ID: ${SLURM_JOB_ID}"
 echo "Running on nodes: ${SLURM_NODELIST}"
 echo "Number of tasks: ${SLURM_NTASKS}"
-echo "GPUs per node: ${SLURM_GPUS_PER_NODE:-1}"
+echo "GPUs per node: ${SLURM_GPUS_PER_NODE}"
 echo "Master address: ${MASTER_ADDR}"
 echo "Master port: ${MASTER_PORT}"
 echo ""
@@ -25,7 +30,7 @@ ls -1ap ../src/
 
 echo -e "\n# Train MNIST with PyTorch using torchrun:\n"
 echo "Using torchrun for distributed training"
-echo "  - nproc-per-node: 1 (matching --gpus-per-node)"
+echo "  - nproc-per-node: ${SLURM_GPUS_PER_NODE} (matching --gpus-per-node)"
 echo "  - nnodes: ${SLURM_NNODES} (from SLURM)"
 echo "  - node-rank: ${SLURM_NODEID} (from SLURM)"
 echo ""
@@ -37,7 +42,7 @@ echo ""
 # - rdzv-backend: rendezvous backend (c10d is standard for static clusters)
 # - rdzv-endpoint: master node address and port (already set as env vars)
 time pixi run --environment gpu torchrun \
-    --nproc-per-node=1 \
+    --nproc-per-node="${SLURM_GPUS_PER_NODE}" \
     --nnodes="${SLURM_NNODES}" \
     --node-rank="${SLURM_NODEID}" \
     --rdzv-backend=c10d \
