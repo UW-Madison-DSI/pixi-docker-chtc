@@ -21,7 +21,7 @@
 #SBATCH --partition=gpuA40x4
 #SBATCH --mem=4G  # memory per node
 #SBATCH --nodes=2
-#SBATCH --ntasks-per-node=1
+#SBATCH --ntasks-per-node=1  # The number of srun commands submitted per execute.sh script. Keep as 1.
 #SBATCH --cpus-per-task=2  # Used to set num_workers in DataLoader
 #SBATCH --constraint="scratch"
 #SBATCH --gpus-per-node=1
