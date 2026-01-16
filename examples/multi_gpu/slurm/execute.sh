@@ -3,7 +3,7 @@
 # detailed logging to stderr
 set -x
 
-echo -e "# Hello CHTC from Job ${1} running on $(hostname)\n"
+echo -e "# Hello CHTC from Job ${SLURM_JOB_ID} running on $(hostname)\n"
 echo -e "# GPUs assigned: ${CUDA_VISIBLE_DEVICES}\n"
 
 echo -e "# Check to see if the NVIDIA drivers can correctly detect the GPU:\n"
@@ -41,10 +41,14 @@ echo ""
 # - node-rank: rank of this node (from SLURM_NODEID)
 # - rdzv-backend: rendezvous backend (c10d is standard for static clusters)
 # - rdzv-endpoint: master node address and port (already set as env vars)
+#
+# Training script arguments (passed after --):
+# --amp: Enable automatic mixed precision for faster training on modern GPUs
+# --checkpoint-freq: Save checkpoint every N epochs (0 to disable)
 time pixi run --environment gpu torchrun \
     --nproc-per-node="${SLURM_GPUS_PER_NODE}" \
     --nnodes="${SLURM_NNODES}" \
     --node-rank="${SLURM_NODEID}" \
     --rdzv-backend=c10d \
     --rdzv-endpoint="${MASTER_ADDR}:${MASTER_PORT}" \
-    ../src/torch_mnist_multi_gpu.py
+    ../src/torch_mnist_multi_gpu.py "$@"

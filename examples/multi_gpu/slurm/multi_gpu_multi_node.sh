@@ -41,4 +41,5 @@ echo "job is starting on $(hostname)"
 export MASTER_ADDR=$(scontrol show hostname ${SLURM_NODELIST} | head -n 1)
 export MASTER_PORT=$((12000 + $SLURM_JOB_ID % 1000))
 
-srun execute.sh
+# Pass any training arguments to execute.sh (e.g., --amp --checkpoint-freq 5)
+srun execute.sh "${TRAINING_ARGS:-}"
