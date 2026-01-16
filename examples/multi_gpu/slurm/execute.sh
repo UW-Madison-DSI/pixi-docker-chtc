@@ -45,10 +45,19 @@ echo ""
 # Training script arguments (passed after --):
 # --amp: Enable automatic mixed precision for faster training on modern GPUs
 # --checkpoint-freq: Save checkpoint every N epochs (0 to disable)
+
+# Filter out empty arguments to avoid passing "" to the training script
+TRAINING_ARGS=()
+for arg in "$@"; do
+    if [ -n "$arg" ]; then
+        TRAINING_ARGS+=("$arg")
+    fi
+done
+
 time pixi run --environment gpu torchrun \
     --nproc-per-node="${SLURM_GPUS_PER_NODE}" \
     --nnodes="${SLURM_NNODES}" \
     --node-rank="${SLURM_NODEID}" \
     --rdzv-backend=c10d \
     --rdzv-endpoint="${MASTER_ADDR}:${MASTER_PORT}" \
-    ../src/torch_mnist_multi_gpu.py "$@"
+    ../src/torch_mnist_multi_gpu.py "${TRAINING_ARGS[@]}"
