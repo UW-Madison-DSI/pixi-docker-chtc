@@ -36,12 +36,20 @@ jobs:
       packages: write
 
     steps:
+      - name: Check available disk space
+        id: disk
+        run: |
+          df -h /
+          echo "available_kib=$(df -k --output=avail / | awk 'NR == 2 {print $1}')" >> "$GITHUB_OUTPUT"
+
+      # GitHub only guarantees 14 GB of storage on standard runners, which is not enough
+      # to build the CUDA Apptainer image. If space is low, remove large preinstalled
+      # toolchains that this job does not use (Android SDK, .NET, and Haskell).
       - name: Free disk space
-        uses: AdityaGarg8/remove-unwanted-software@v5
-        with:
-          remove-android: 'true'
-          remove-dotnet: 'true'
-          remove-haskell: 'true'
+        if: ${{ fromJSON(steps.disk.outputs.available_kib) < 31457280 }}  # 30 GiB
+        run: |
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup
+          df -h /
 
       - name: Checkout
         uses: actions/checkout@v7
@@ -49,14 +57,30 @@ jobs:
           fetch-depth: 0
 
       - name: Install Apptainer
-        uses: eWaterCycle/setup-apptainer@v2
+        uses: prefix-dev/setup-pixi@v0.11.2
+        with:
+          run-install: false
+          global-environments: apptainer
+
+      - name: Allow unprivileged user namespaces
+        # The conda-forge Apptainer is an unprivileged (non-setuid) install, and
+        # Ubuntu 24.04+ restricts unprivileged user namespaces with AppArmor
+        # See https://apptainer.org/docs/admin/main/user_namespace.html
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
 
       - name: Build container from definition file
         working-directory: ./examples/hello_pytorch
+        env:
+          # /tmp on ubuntu-26.04 runners is a ~8 GB tmpfs, too small for the CUDA
+          # environment, so build on the runner's disk instead
+          APPTAINER_TMPDIR: ${{ runner.temp }}
         run: apptainer build pixi-docker-chtc.sif apptainer.def
 
       - name: Test container
         working-directory: ./examples/hello_pytorch
+        env:
+          # The runner has no GPU, so declare CUDA for pixi to satisfy the workspace's CUDA requirement
+          CONDA_OVERRIDE_CUDA: "12"
         run: apptainer test pixi-docker-chtc.sif
 
       - name: Login to GitHub Container Registry
@@ -67,20 +91,12 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Docker meta
-        if: github.event_name != 'pull_request'
-        id: meta
-        uses: docker/metadata-action@v6
-        with:
-          # generate container tags based on the following events/attributes
-          tags: |
-            type=sha
-
       - name: Deploy built container
         if: github.event_name != 'pull_request'
         working-directory: ./examples/hello_pytorch
-        # can't use 'ghcr.io/${{ github.repository }}' as GitHub org is case sensitive
         run: |
-          apptainer push pixi-docker-chtc.sif oras://ghcr.io/uw-madison-dsi/pixi-docker-chtc:apptainer-hello-pytorch-noble-cuda-12.9
-          # ${{ steps.meta.outputs.tags }} is just the SHA
-          apptainer push pixi-docker-chtc.sif oras://ghcr.io/uw-madison-dsi/pixi-docker-chtc:apptainer-${{ steps.meta.outputs.tags }}
+          short_sha="${GITHUB_SHA::7}"
+          # OCI registry paths must be lowercase, but GITHUB_REPOSITORY preserves the org's case
+          registry="oras://ghcr.io/${GITHUB_REPOSITORY,,}"
+          apptainer push pixi-docker-chtc.sif "${registry}:apptainer-hello-pytorch-noble-cuda-12.9"
+          apptainer push pixi-docker-chtc.sif "${registry}:apptainer-sha-${short_sha}"
