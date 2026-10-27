@@ -65,7 +65,7 @@ jobs:
       - name: Allow unprivileged user namespaces
         # The conda-forge Apptainer is an unprivileged (non-setuid) install, and
         # Ubuntu 24.04+ restricts unprivileged user namespaces with AppArmor
-        # c.f. https://apptainer.org/docs/admin/main/user_namespace.html
+        # See https://apptainer.org/docs/admin/main/user_namespace.html
         run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
 
       - name: Build container from definition file
