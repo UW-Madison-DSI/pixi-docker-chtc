@@ -62,6 +62,10 @@ jobs:
 
       - name: Build container from definition file
         working-directory: ./examples/hello_pytorch
+        env:
+          # /tmp on ubuntu-26.04 runners is a ~8 GB tmpfs, too small for the CUDA
+          # environment, so build on the runner's disk instead
+          APPTAINER_TMPDIR: ${{ runner.temp }}
         run: apptainer build pixi-docker-chtc.sif apptainer.def
 
       - name: Test container
